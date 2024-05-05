@@ -1,5 +1,5 @@
 /* ===== Google Font Import - Poformsins ===== */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Heebo:wght@300;400;500;600;700;800;900&family=Jost:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 * {
     margin: 0;
@@ -13,7 +13,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4070f4;
+    background-color: #fff;
 }
 
 .container {
@@ -22,7 +22,7 @@ body {
     width: 100%;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     overflow: hidden;
     margin: 0 20px;
 }
@@ -67,17 +67,6 @@ body {
     position: relative;
     font-size: 27px;
     font-weight: 600;
-}
-
-.form .title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 30px;
-    background-color: #4070f4;
-    border-radius: 25px;
 }
 
 .form .input-field {
@@ -181,4 +170,75 @@ body {
 .form .login-signup {
     margin-top: 30px;
     text-align: center;
+}
+
+.bg-blue {
+    background-color: #0064e0;
+}
+
+.pt-50 {
+    padding-top: 55px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.pl-390 {
+    padding-left: 405px;
+}
+
+.main-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.header-top-ptb-7 {
+    padding: 0px 0 20px;
+}
+
+.header-small-device {
+    display: none;
+}
+
+.header-small-device.small-device-ptb-1 {
+    padding: 25px 0 25px;
+}
+
+.col-5 {
+    padding: 5px 0 5px 100px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header-small-device {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .header-small-device {
+        display: block;
+    }
+}
+
+.header-small-device.small-device-ptb-1 {
+    padding: 25px 0 25px;
+}
+
+.header-large-device {
+    display: block;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header-large-device {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .header-large-device {
+        display: none;
+    }
 }
