@@ -4251,6 +4251,12 @@ textarea:focus {
 
 .logo a img {
   max-width: 100%;
+  width: 135px;
+}
+
+.mobile-logo a img {
+  max-width: 100%;
+  width: 135px;
 }
 
 .social-offer-wrap {
@@ -5318,7 +5324,7 @@ textarea:focus {
 
 @media only screen and (max-width: 767px) {
   .header-small-device .container .align-items-center .col-7 .mobile-search form button {
-      font-size: 16px;
+    font-size: 16px;
   }
 }
 
