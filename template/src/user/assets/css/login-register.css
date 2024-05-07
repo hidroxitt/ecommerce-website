@@ -189,7 +189,7 @@ body {
 }
 
 .main-wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -241,4 +241,12 @@ body {
     .header-large-device {
         display: none;
     }
+}
+
+.logo a img {
+    width: 135px;
+}
+
+.mobile-logo a img {
+    width: 135px;
 }
