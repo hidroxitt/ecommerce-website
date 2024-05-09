@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from '../../images/logo/logo-3.png';
-import '../../css/login-signin.css';
+import '../../css/login-signup.css';
 
 const HeaderAuth: React.FC = () => {
     return (
