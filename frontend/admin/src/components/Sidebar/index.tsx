@@ -109,6 +109,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-house" style={{ color: "#fff" }}></i>
                   Bảng điều khiển
                 </NavLink>
               </li>
@@ -122,6 +123,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-user" style={{ color: "#fff" }}></i>
                   Quản lý người dùng
                 </NavLink>
               </li>
@@ -135,6 +137,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-bags-shopping" style={{ color: "#fff" }}></i>
                   Quản lý sản phẩm
                 </NavLink>
               </li>
@@ -147,6 +150,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative mb-3 flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('manage/order-management') && 'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-cart-shopping" style={{ color: "#fff" }}></i>
                   Quản lý đơn hàng
                 </NavLink>
               </li>
@@ -159,6 +163,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative mb-3 flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('manage/voucher-management') && 'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-tickets" style={{ color: "#fff" }}></i>
                   Quản lý voucher
                 </NavLink>
               </li>
@@ -171,6 +176,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative mb-3 flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('manage/warehouse-management') && 'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-house-building" style={{ color: "#fff" }}></i>
                   Quản lý kho hàng
                 </NavLink>
               </li>
@@ -183,6 +189,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative mb-3 flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('manage/revenue-management') && 'bg-graydark dark:bg-meta-4'
                     }`}
                 >
+                  <i className="fa-solid fa-money-check-dollar" style={{ color: "#fff" }}></i>
                   Quản lý doanh thu
                 </NavLink>
               </li>
