@@ -1,11 +1,12 @@
 import React from "react";
 import DefaultLayout from "../../layout/DefaultLayout";
+import TableWarehouse from "../../components/Tables/TableWarehouse";
 
 const WarehouseManagement: React.FC = () => {
     return (
         <DefaultLayout>
-            <div>
-                <h1>Warehouse Management</h1>
+            <div className="flex flex-col gap-10">
+                <TableWarehouse />
             </div>
         </DefaultLayout>
     );
