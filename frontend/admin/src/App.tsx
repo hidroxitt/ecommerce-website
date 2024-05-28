@@ -20,6 +20,7 @@ import VoucherManagement from './pages/Manage/VoucherManagement';
 import UserManagement from './pages/Manage/UserManagement';
 import WarehouseManagement from './pages/Manage/WarehouseManagement';
 import OrderManagement from './pages/Manage/OrderManagement';
+import FormAddProduct from './pages/Form/FormAddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -188,6 +189,15 @@ function App() {
             <>
               <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <OrderManagement />
+            </>
+          }
+        />
+        <Route
+          path="/forms/form-add-product"
+          element={
+            <>
+              <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <FormAddProduct />
             </>
           }
         />
