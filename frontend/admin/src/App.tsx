@@ -5,7 +5,6 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import ECommerce from './pages/Dashboard/ECommerce';
 import FormElements from './pages/Form/FormElements';
@@ -15,6 +14,13 @@ import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
+import RevenueManagement from './pages/Manage/RevenueManagement';
+import ProductManagement from './pages/Manage/ProductManagement';
+import VoucherManagement from './pages/Manage/VoucherManagement';
+import UserManagement from './pages/Manage/UserManagement';
+import WarehouseManagement from './pages/Manage/WarehouseManagement';
+import OrderManagement from './pages/Manage/OrderManagement';
+import FormAddProduct from './pages/Form/FormAddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,15 +45,6 @@ function App() {
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <ECommerce />
-            </>
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Calendar />
             </>
           }
         />
@@ -138,6 +135,69 @@ function App() {
             <>
               <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="/manage/revenue-management"
+          element={
+            <>
+              <PageTitle title="Revenue Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <RevenueManagement />
+            </>
+          }
+        />
+        <Route
+          path="/manage/product-management"
+          element={
+            <>
+              <PageTitle title="Product Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <ProductManagement />
+            </>
+          }
+        />
+        <Route
+          path="/manage/voucher-management"
+          element={
+            <>
+              <PageTitle title="Voucher Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <VoucherManagement />
+            </>
+          }
+        />
+        <Route
+          path="/manage/user-management"
+          element={
+            <>
+              <PageTitle title="User Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <UserManagement />
+            </>
+          }
+        />
+        <Route
+          path="/manage/warehouse-management"
+          element={
+            <>
+              <PageTitle title="Warehouse Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <WarehouseManagement />
+            </>
+          }
+        />
+        <Route
+          path="/manage/order-management"
+          element={
+            <>
+              <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <OrderManagement />
+            </>
+          }
+        />
+        <Route
+          path="/forms/form-add-product"
+          element={
+            <>
+              <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <FormAddProduct />
             </>
           }
         />

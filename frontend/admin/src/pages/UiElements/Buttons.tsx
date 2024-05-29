@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
-
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 
 const Buttons = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Buttons" />
 
       {/* <!-- Normal Button Items --> */}
       <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
