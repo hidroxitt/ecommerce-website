@@ -7,20 +7,15 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Chart from './pages/Chart';
 import ECommerce from './pages/Dashboard/ECommerce';
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
 import RevenueManagement from './pages/Manage/RevenueManagement';
 import ProductManagement from './pages/Manage/ProductManagement';
 import VoucherManagement from './pages/Manage/VoucherManagement';
 import UserManagement from './pages/Manage/UserManagement';
 import WarehouseManagement from './pages/Manage/WarehouseManagement';
 import OrderManagement from './pages/Manage/OrderManagement';
-import FormAddProduct from './pages/Form/FormAddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -45,33 +40,6 @@ function App() {
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <ECommerce />
-            </>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Profile />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-elements"
-          element={
-            <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormElements />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-layout"
-          element={
-            <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormLayout />
             </>
           }
         />
@@ -108,15 +76,6 @@ function App() {
             <>
               <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <Alerts />
-            </>
-          }
-        />
-        <Route
-          path="/ui/buttons"
-          element={
-            <>
-              <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Buttons />
             </>
           }
         />
@@ -189,15 +148,6 @@ function App() {
             <>
               <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <OrderManagement />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-add-product"
-          element={
-            <>
-              <PageTitle title="Order Management | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormAddProduct />
             </>
           }
         />
