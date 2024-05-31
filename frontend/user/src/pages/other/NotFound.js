@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 
 const NotFound = () => {
 
@@ -16,7 +16,7 @@ const NotFound = () => {
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         <div className="error-area pt-40 pb-100">
           <div className="container">
@@ -49,7 +49,7 @@ const NotFound = () => {
             </div>
           </div>
         </div>
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

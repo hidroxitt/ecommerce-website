@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
@@ -19,7 +19,7 @@ const Product = ({ product }) => {
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         {/* product description with image */}
         <ProductImageDescription
@@ -39,7 +39,7 @@ const Product = ({ product }) => {
           spaceBottomClass="pb-95"
           category={product.category[0]}
         />
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

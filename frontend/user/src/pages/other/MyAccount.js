@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 
 const MyAccount = () => {
 
@@ -17,7 +17,7 @@ const MyAccount = () => {
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         <div className="myaccount-area pb-80 pt-100">
           <div className="container">
@@ -168,7 +168,7 @@ const MyAccount = () => {
             </div>
           </div>
         </div>
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

@@ -14,9 +14,8 @@ const HeaderTop = ({
 }) => {
   return (
     <div
-      className={`header-top-wap ${
-        borderStyle === "fluid-border" ? "border-bottom" : ""
-      }`}
+      className={`header-top-wap ${borderStyle === "fluid-border" ? "border-bottom" : ""
+        }`}
     >
       <LanguageCurrencyChanger
         currency={currency}
@@ -26,10 +25,11 @@ const HeaderTop = ({
       />
       <div className="header-offer">
         <p>
-          Free delivery on order over{" "}
+          Mừng sinh nhật! Giảm giá {" "}
           <span>
-            {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
+            {(20 * currency.currencyRate).toFixed(2) + currency.currencySymbol}
           </span>
+          {" "} trên tổng hoá đơn
         </p>
       </div>
     </div>

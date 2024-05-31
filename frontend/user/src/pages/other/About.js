@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 import SectionTitleWithText from "../../components/section-title/SectionTitleWithText";
 import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 
@@ -17,14 +17,14 @@ const About = () => {
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         {/* section title with text */}
         <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95" />
 
         {/* text grid */}
         <TextGridOne spaceBottomClass="pb-70" />
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

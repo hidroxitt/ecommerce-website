@@ -12,7 +12,7 @@ import {
   cartItemStock,
   removeAllFromCart
 } from "../../redux/actions/cartActions";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 
 const Cart = ({
   cartItems,
@@ -36,7 +36,7 @@ const Cart = ({
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
@@ -331,7 +331,7 @@ const Cart = ({
             )}
           </div>
         </div>
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

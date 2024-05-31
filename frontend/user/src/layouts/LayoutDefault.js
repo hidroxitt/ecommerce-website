@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import HeaderOne from "../wrappers/header/HeaderOne";
-import FooterOne from "../wrappers/footer/FooterOne";
+import HeaderDefault from "../wrappers/header/HeaderDefault";
+import FooterDefault from "../wrappers/footer/FooterDefault";
 
-const LayoutOne = ({
+const LayoutDefault = ({
   children,
   headerContainerClass,
   headerTop,
@@ -11,13 +11,13 @@ const LayoutOne = ({
 }) => {
   return (
     <Fragment>
-      <HeaderOne
+      <HeaderDefault
         layout={headerContainerClass}
         top={headerTop}
         headerPaddingClass={headerPaddingClass}
       />
       {children}
-      <FooterOne
+      <FooterDefault
         backgroundColorClass="bg-gray"
         spaceTopClass="pt-100"
         spaceBottomClass="pb-70"
@@ -26,11 +26,11 @@ const LayoutOne = ({
   );
 };
 
-LayoutOne.propTypes = {
+LayoutDefault.propTypes = {
   children: PropTypes.any,
   headerContainerClass: PropTypes.string,
   headerPaddingClass: PropTypes.string,
   headerTop: PropTypes.string
 };
 
-export default LayoutOne;
+export default LayoutDefault;
