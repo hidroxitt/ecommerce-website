@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
 import { removeFromCompare } from "../../redux/actions/compareActions";
 import { getDiscountPrice } from "../../helpers/product";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 import Rating from "../../components/product/sub-components/ProductRating";
 
 const Compare = ({
@@ -29,7 +29,7 @@ const Compare = ({
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         <div className="compare-main-area pt-90 pb-100">
           <div className="container">
@@ -223,7 +223,7 @@ const Compare = ({
             )}
           </div>
         </div>
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

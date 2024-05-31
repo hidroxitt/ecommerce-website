@@ -5,7 +5,7 @@ import { animateScroll } from "react-scroll";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
-const FooterOne = ({
+const FooterDefault = ({
   backgroundColorClass,
   spaceTopClass,
   spaceBottomClass,
@@ -46,7 +46,7 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
+              footerLogo="/assets/img/logo/logo.svg"
               spaceBottomClass="mb-30"
             />
           </div>
@@ -187,7 +187,7 @@ const FooterOne = ({
   );
 };
 
-FooterOne.propTypes = {
+FooterDefault.propTypes = {
   backgroundColorClass: PropTypes.string,
   containerClass: PropTypes.string,
   extraFooterClass: PropTypes.string,
@@ -196,4 +196,4 @@ FooterOne.propTypes = {
   spaceTopClass: PropTypes.string
 };
 
-export default FooterOne;
+export default FooterDefault;

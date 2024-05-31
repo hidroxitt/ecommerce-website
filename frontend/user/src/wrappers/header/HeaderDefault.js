@@ -6,7 +6,7 @@ import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
 
-const HeaderOne = ({
+const HeaderDefault = ({
   layout,
   top,
   borderStyle,
@@ -34,11 +34,9 @@ const HeaderOne = ({
       className={`header-area clearfix ${headerBgClass ? headerBgClass : ""}`}
     >
       <div
-        className={`${headerPaddingClass ? headerPaddingClass : ""} ${
-          top === "visible" ? "d-none d-lg-block" : "d-none"
-        } header-top-area ${
-          borderStyle === "fluid-border" ? "border-none" : ""
-        }`}
+        className={`${headerPaddingClass ? headerPaddingClass : ""} ${top === "visible" ? "d-none d-lg-block" : "d-none"
+          } header-top-area ${borderStyle === "fluid-border" ? "border-none" : ""
+          }`}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           {/* header top */}
@@ -47,17 +45,15 @@ const HeaderOne = ({
       </div>
 
       <div
-        className={` ${
-          headerPaddingClass ? headerPaddingClass : ""
-        } sticky-bar header-res-padding clearfix ${
-          scroll > headerTop ? "stick" : ""
-        }`}
+        className={` ${headerPaddingClass ? headerPaddingClass : ""
+          } sticky-bar header-res-padding clearfix ${scroll > headerTop ? "stick" : ""
+          }`}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+              <Logo imageUrl="/assets/img/logo/logo.svg" logoClass="logo" />
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}
@@ -76,11 +72,11 @@ const HeaderOne = ({
   );
 };
 
-HeaderOne.propTypes = {
+HeaderDefault.propTypes = {
   borderStyle: PropTypes.string,
   headerPaddingClass: PropTypes.string,
   layout: PropTypes.string,
   top: PropTypes.string
 };
 
-export default HeaderOne;
+export default HeaderDefault;

@@ -4,7 +4,7 @@ import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 import { connect } from 'react-redux';
 import { getSortedProducts } from '../../helpers/product';
-import LayoutOne from '../../layouts/LayoutOne';
+import LayoutDefault from '../../layouts/LayoutDefault';
 import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
@@ -51,7 +51,7 @@ const ShopPage = ({ products }) => {
                 <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
             </MetaTags>
 
-            <LayoutOne headerTop="visible">
+            <LayoutDefault headerTop="visible">
 
                 <div className="shop-area pt-95 pb-100">
                     <div className="container">
@@ -85,7 +85,7 @@ const ShopPage = ({ products }) => {
                         </div>
                     </div>
                 </div>
-            </LayoutOne>
+            </LayoutDefault>
         </Fragment>
     )
 }

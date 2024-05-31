@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 
 const Checkout = ({ cartItems, currency }) => {
   let cartTotalPrice = 0;
@@ -19,7 +19,7 @@ const Checkout = ({ cartItems, currency }) => {
         />
       </MetaTags>
 
-      <LayoutOne headerTop="visible">
+      <LayoutDefault headerTop="visible">
 
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
@@ -215,7 +215,7 @@ const Checkout = ({ cartItems, currency }) => {
             )}
           </div>
         </div>
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

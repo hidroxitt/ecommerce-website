@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutDefault from "../../layouts/LayoutDefault";
 import HeroSliderTen from "../../wrappers/hero-slider/HeroSliderTen";
-import CategoryThreeSlider from "../../wrappers/category/CategoryThreeSlider";
+import CategorySlider from "../../wrappers/category/CategorySlider";
 import TabProductTen from "../../wrappers/product/TabProductTen";
 
 const HomePage = () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
           content="Fashion home of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <LayoutOne
+      <LayoutDefault
         headerContainerClass="container-fluid"
         headerPaddingClass="header-padding-2"
         headerTop="visible"
@@ -23,14 +23,14 @@ const HomePage = () => {
         {/* hero slider */}
         <HeroSliderTen />
         {/* category */}
-        <CategoryThreeSlider spaceTopClass="pt-100" spaceBottomClass="pb-80" />
+        <CategorySlider spaceTopClass="pt-100" spaceBottomClass="pb-80" />
         {/* tab product */}
         <TabProductTen
           spaceBottomClass="pb-60"
           spaceTopClass="pt-60"
           category="electronics"
         />
-      </LayoutOne>
+      </LayoutDefault>
     </Fragment>
   );
 };

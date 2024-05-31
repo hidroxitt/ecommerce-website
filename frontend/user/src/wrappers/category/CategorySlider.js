@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import Swiper from "react-id-swiper";
 import categoryData from "../../data/category/category-two.json";
-import CategoryThreeSingle from "../../components/category/CategoryThreeSingle.js";
+import CategorySingle from "../../components/category/CategorySingle.js";
 
-const CategoryThreeSlider = ({ spaceTopClass, spaceBottomClass }) => {
+const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
   // swiper slider settings
   const settings = {
     loop: false,
@@ -27,9 +27,8 @@ const CategoryThreeSlider = ({ spaceTopClass, spaceBottomClass }) => {
   };
   return (
     <div
-      className={`collections-area ${spaceTopClass ? spaceTopClass : ""}  ${
-        spaceBottomClass ? spaceBottomClass : ""
-      }`}
+      className={`collections-area ${spaceTopClass ? spaceTopClass : ""}  ${spaceBottomClass ? spaceBottomClass : ""
+        }`}
     >
       <div className="container">
         <div className="collection-wrap">
@@ -38,7 +37,7 @@ const CategoryThreeSlider = ({ spaceTopClass, spaceBottomClass }) => {
               {categoryData &&
                 categoryData.map((single, key) => {
                   return (
-                    <CategoryThreeSingle
+                    <CategorySingle
                       data={single}
                       key={key}
                       sliderClass="swiper-slide"
@@ -53,9 +52,9 @@ const CategoryThreeSlider = ({ spaceTopClass, spaceBottomClass }) => {
   );
 };
 
-CategoryThreeSlider.propTypes = {
+CategorySlider.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string
 };
 
-export default CategoryThreeSlider;
+export default CategorySlider;
