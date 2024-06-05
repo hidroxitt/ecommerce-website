@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutDefault from "../../layouts/LayoutDefault";
@@ -8,10 +7,10 @@ const Contact = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Contact</title>
+        <title>ShopZone | Contact</title>
         <meta
           name="description"
-          content="Contact of flone react minimalist eCommerce template."
+          content="Contact of ShopZone"
         />
       </MetaTags>
 
@@ -24,7 +23,7 @@ const Contact = () => {
                 <div className="contact-info-wrap">
                   <div className="single-contact-info">
                     <div className="contact-icon">
-                      <i className="fa fa-phone" />
+                      <i className="fa-solid fa-phone"></i>
                     </div>
                     <div className="contact-info-dec">
                       <p>+012 345 678 102</p>
@@ -33,7 +32,7 @@ const Contact = () => {
                   </div>
                   <div className="single-contact-info">
                     <div className="contact-icon">
-                      <i className="fa fa-globe" />
+                      <i className="fa-solid fa-globe"></i>
                     </div>
                     <div className="contact-info-dec">
                       <p>
@@ -46,7 +45,7 @@ const Contact = () => {
                   </div>
                   <div className="single-contact-info">
                     <div className="contact-icon">
-                      <i className="fa fa-map-marker" />
+                      <i className="fa-solid fa-location-dot"></i>
                     </div>
                     <div className="contact-info-dec">
                       <p>Address goes here, </p>
@@ -96,10 +95,6 @@ const Contact = () => {
       </LayoutDefault>
     </Fragment>
   );
-};
-
-Contact.propTypes = {
-  location: PropTypes.object
 };
 
 export default Contact;

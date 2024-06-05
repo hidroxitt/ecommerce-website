@@ -55,7 +55,7 @@ const MenuCart = ({ cartData, currency, removeFromCart }) => {
                         : currency.currencySymbol + finalProductPrice}
                     </span>
                     {single.selectedProductColor &&
-                      single.selectedProductSize ? (
+                    single.selectedProductSize ? (
                       <div className="cart-item-variation">
                         <span>Color: {single.selectedProductColor}</span>
                         <span>Size: {single.selectedProductSize}</span>
@@ -66,7 +66,7 @@ const MenuCart = ({ cartData, currency, removeFromCart }) => {
                   </div>
                   <div className="shopping-cart-delete">
                     <button onClick={() => removeFromCart(single, addToast)}>
-                      <i className="fa-solid fa-circle-xmark"></i>
+                    <i className="fa-solid fa-circle-xmark"></i>
                     </button>
                   </div>
                 </li>

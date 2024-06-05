@@ -65,6 +65,7 @@ const ProductGridListSingle = ({
             ) : (
               ""
             )}
+
           </div>
           <div className="product-content text-center">
             <h3>
@@ -140,14 +141,14 @@ const ProductGridListSingle = ({
                   {discountedPrice !== null ? (
                     <Fragment>
                       <span>
-                        {currency.currencySymbol + finalDiscountedPrice}
+                        {finalDiscountedPrice + currency.currencySymbol}
                       </span>{" "}
                       <span className="old">
-                        {currency.currencySymbol + finalProductPrice}
+                        {finalProductPrice + currency.currencySymbol}
                       </span>
                     </Fragment>
                   ) : (
-                    <span>{currency.currencySymbol + finalProductPrice} </span>
+                    <span>{finalProductPrice + currency.currencySymbol} </span>
                   )}
                 </div>
                 {product.rating && product.rating > 0 ? (
@@ -200,7 +201,7 @@ const ProductGridListSingle = ({
                         }
                       >
                         {" "}
-                        <i className="pe-7s-cart"></i>{" "}
+                        <i className="fa-light fa-cart-shopping"></i>{" "}
                         {cartItem !== undefined && cartItem.quantity > 0
                           ? "Added"
                           : "Add to cart"}
@@ -223,7 +224,7 @@ const ProductGridListSingle = ({
                       }
                       onClick={() => addToWishlist(product, addToast)}
                     >
-                      <i className="pe-7s-like" />
+                      <i className="fa-light fa-heart"></i>
                     </button>
                   </div>
                   <div className="shop-list-compare ml-10">
@@ -237,7 +238,7 @@ const ProductGridListSingle = ({
                       }
                       onClick={() => addToCompare(product, addToast)}
                     >
-                      <i className="pe-7s-shuffle" />
+                      <i className="fa-light fa-shuffle"></i>
                     </button>
                   </div>
                 </div>

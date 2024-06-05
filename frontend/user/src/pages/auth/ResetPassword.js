@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
-import { Link } from "react-router-dom";
 import LayoutAuth from "../../layouts/LayoutAuth";
 
 const ResetPassword = () => {
@@ -13,56 +12,62 @@ const ResetPassword = () => {
 
     return (
         <Fragment>
-            <MetaTags
-                title="ShopZone | Reset Password"
-                description="Fashion home of flone react minimalist eCommerce template."
-            />
+            <MetaTags>
+                <title>ShopZone | Reset Password</title>
+                <meta
+                    name="description"
+                    content="Reset Password"
+                />
+            </MetaTags>
+
             <LayoutAuth headerTop="visible">
-                <div className="auth-container">
-                    <div className="auth-wrapper">
-                        <div className="auth-component">
-                            <div className="auth-form reset-password">
-                                <span className="title">Reset Password</span>
-
-                                <form action="#">
-                                    <div className="input-field">
-                                        <input
-                                            type={showPassword[0] ? 'text' : 'password'}
-                                            className="password"
-                                            placeholder="Enter new password"
-                                            name="password"
-                                            required
-                                        />
-                                        <i className="fa-regular fa-lock"></i>
-                                        <i
-                                            className={`fa-regular ${showPassword[0] ? 'fa-eye' : 'fa-eye-slash'} showHidePw`}
-                                            onClick={() => togglePasswordVisibility(0)}
-                                        ></i>
+                <div className="login-register-area pt-60 pb-100">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-4 col-md-10 ml-auto mr-auto">
+                                <div className="login-register-wrapper pt-40">
+                                    <div className="login-register-tab-list">
+                                        <div className="nav-item">
+                                            <h4>Reset Password</h4>
+                                        </div>
                                     </div>
-                                    <div className="input-field">
-                                        <input
-                                            type={showPassword[1] ? 'text' : 'password'}
-                                            className="password"
-                                            placeholder="Confirm new password"
-                                            name="password"
-                                            required
-                                        />
-                                        <i className="fa-regular fa-lock"></i>
-                                        <i
-                                            className={`fa-regular ${showPassword[1] ? 'fa-eye' : 'fa-eye-slash'} showHidePw`}
-                                            onClick={() => togglePasswordVisibility(1)}
-                                        ></i>
+                                    <div className="login-form-container">
+                                        <div className="login-register-form">
+                                            <form>
+                                                <div className="password-input">
+                                                    <input
+                                                        type={showPassword[0] ? 'text' : 'password'}
+                                                        className="password"
+                                                        name="password"
+                                                        placeholder=" New Password"
+                                                        required
+                                                    />
+                                                    <i
+                                                        className={`fa-regular ${showPassword[0] ? 'fa-eye' : 'fa-eye-slash'} showHidePw`}
+                                                        onClick={() => togglePasswordVisibility(0)}
+                                                    ></i>
+                                                </div>
+                                                <div className="password-input">
+                                                    <input
+                                                        type={showPassword[1] ? 'text' : 'password'}
+                                                        className="password"
+                                                        name="password"
+                                                        placeholder="Confirm Password"
+                                                        required
+                                                    />
+                                                    <i
+                                                        className={`fa-regular ${showPassword[1] ? 'fa-eye' : 'fa-eye-slash'} showHidePw`}
+                                                        onClick={() => togglePasswordVisibility(1)}
+                                                    ></i>
+                                                </div>
+                                                <div className="button-box">
+                                                    <button type="submit">
+                                                        <span>Reset Password</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-
-                                    <div className="input-field auth-button">
-                                        <input type="button" value="Reset Password" />
-                                    </div>
-                                </form>
-
-                                <div className="login-signup">
-                                    <span className="text">Remember your password?
-                                        <Link to="/login-register" className="text login-link">Login Now</Link>
-                                    </span>
                                 </div>
                             </div>
                         </div>

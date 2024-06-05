@@ -44,12 +44,12 @@ const ProductImageGallery = ({ product }) => {
     },
     renderPrevButton: () => (
       <button className="swiper-button-prev ht-swiper-button-nav">
-        <i className="pe-7s-angle-left" />
+        <i className="fa-light fa-angle-left"></i>
       </button>
     ),
     renderNextButton: () => (
       <button className="swiper-button-next ht-swiper-button-nav">
-        <i className="pe-7s-angle-right" />
+        <i className="fa-light fa-angle-right"></i>
       </button>
     )
   };
@@ -80,7 +80,7 @@ const ProductImageGallery = ({ product }) => {
                       src={process.env.PUBLIC_URL + single}
                     >
                       <button>
-                        <i className="pe-7s-expand1"></i>
+                      <i className="fa-sharp fa-solid fa-expand"></i>
                       </button>
                     </LightgalleryItem>
                     <div className="single-image">

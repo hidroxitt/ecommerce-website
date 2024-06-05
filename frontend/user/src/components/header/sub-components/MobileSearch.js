@@ -6,7 +6,7 @@ const MobileSearch = () => {
       <form action="#">
         <input type="search" placeholder="Search ..." />
         <button type="submit">
-          <i className="fa fa-search" />
+        <i className="fa-regular fa-magnifying-glass"></i>
         </button>
       </form>
     </div>

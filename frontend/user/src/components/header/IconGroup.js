@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { removeFromCart } from "../../redux/actions/cartActions";
+import { multilanguage } from "redux-multilanguage";
 
 const IconGroup = ({
+  strings,
   currency,
   cartData,
   wishlistData,
@@ -38,16 +40,19 @@ const IconGroup = ({
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+              <Link to={process.env.PUBLIC_URL + "/login"}>{strings["login"]}</Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
+              <Link to={process.env.PUBLIC_URL + "/signup"}>{strings["signup"]}</Link>
             </li>
             <li>
               <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
+                {strings["my_account"]}
+              </Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/my-store"}>
+                {strings["my_store"]}
               </Link>
             </li>
           </ul>
@@ -104,6 +109,7 @@ const IconGroup = ({
 };
 
 IconGroup.propTypes = {
+  strings: PropTypes.object,
   cartData: PropTypes.array,
   compareData: PropTypes.array,
   currency: PropTypes.object,
@@ -129,4 +135,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IconGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(multilanguage(IconGroup));

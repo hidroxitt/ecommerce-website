@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { multilanguage } from "redux-multilanguage";
 
-const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
+const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   return (
     <div
       className={` ${sidebarMenu
@@ -24,8 +24,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 
 NavMenu.propTypes = {
   menuWhiteClass: PropTypes.string,
-  sidebarMenu: PropTypes.bool,
-  strings: PropTypes.object
+  sidebarMenu: PropTypes.bool
 };
 
 export default multilanguage(NavMenu);

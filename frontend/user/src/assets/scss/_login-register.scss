@@ -1,183 +1,180 @@
 /*------ 24. login register Page  --------*/
 
-.auth-container {
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.auth-wrapper {
-  position: relative;
-  max-width: 430px;
+.login-register-wrapper {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 5px;
   width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin: 0 20px;
 
-  .auth-component {
+  .login-register-tab-list {
     display: flex;
-    align-items: center;
-    height: 440px;
-    width: 200%;
-    transition: height 0.2s ease;
+    justify-content: center;
+
+    .nav-item {
+      position: relative;
+      background: none;
+      padding: 0;
+
+      h4 {
+        font-size: 25px;
+        font-weight: 700;
+        margin: 0 20px;
+        text-transform: capitalize;
+        transition: all 0.3s ease 0s;
+      }
+
+      &:last-child::before {
+        display: none;
+      }
+
+      a.active h4 {
+        color: $theme-color;
+      }
+
+      &:before {
+        background-color: #454545;
+        bottom: 5px;
+        content: "";
+        height: 18px;
+        margin: 0 auto;
+        position: absolute;
+        right: -2px;
+        transition: all 0.4s ease 0s;
+        width: 1px;
+      }
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
   }
 
-  .auth-form {
-    width: 50%;
-    padding: 30px;
-    background-color: #fff;
-    transition: margin-left 0.18s ease;
+  .login-form-container {
+    background: transparent none repeat scroll 0 0;
+    padding: 30px 36px;
+    text-align: left;
 
-    .title {
-      position: relative;
-      font-size: 27px;
-      font-weight: 600;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 3px;
-        width: 30px;
-        background-color: #4070f4;
-        border-radius: 25px;
-      }
+    @media #{$lg-layout} {
+      padding: 50px 50px;
     }
 
-    .input-field {
-      position: relative;
-      height: 50px;
-      width: 100%;
-      margin-top: 30px;
-
-      input {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        padding: 0 35px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        border-bottom: 2px solid #ccc;
-        border-top: 2px solid transparent;
-        transition: all 0.2s ease;
-        background-color: #fff;
-
-        &:is(:focus, :valid) {
-          border-bottom-color: #4070f4;
-        }
-      }
-
-      i {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #999;
-        font-size: 23px;
-        transition: all 0.2s ease;
-
-        &.icon {
-          left: 0;
-        }
-
-        &.showHidePw {
-          right: 0;
-          cursor: pointer;
-          padding: 10px;
-        }
-
-        input:is(:focus, :valid)~& {
-          color: #4070f4;
-        }
-      }
+    @media #{$xs-layout} {
+      padding: 40px 15px;
     }
 
-    .checkbox-text {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 20px;
-
-      .checkbox-content {
-        display: flex;
-        align-items: center;
-
+    .login-register-form {
+      form {
         input {
-          margin-right: 10px;
-          accent-color: #4070f4;
-          width: auto;
-          height: auto;
+          background-color: transparent;
+          border: 1px solid #ebebeb;
+          color: #333;
+          font-size: 14px;
+          height: 45px;
+          margin-bottom: 30px;
+          padding: 0 15px;
         }
 
-        label {
-          margin-top: 7px;
+        input[type="checkbox"] {
+          height: 15px;
+          margin: 0;
+          position: relative;
+          top: 1px;
+          width: 17px;
         }
-      }
 
-      .text {
-        color: #333;
-        font-size: 14px;
+        .password-input {
+          position: relative;
 
-        a {
-          color: #4070f4;
-          text-decoration: none;
+          input.password {
+            width: 100%;
+            height: 45px;
+            padding-right: 40px;
+          }
 
-          &:hover {
-            text-decoration: underline;
+          .showHidePw {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-150%);
+            cursor: pointer;
+            color: #333;
+          }
+
+          .showHidePw:hover {
+            color: $theme-color;
+          }
+        }
+
+        .button-box {
+          .login-toggle-btn {
+            padding-bottom: 20px;
+
+            label {
+              color: #242424;
+              font-size: 15px;
+              font-weight: 400;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+            }
+
+            a {
+              color: #242424;
+              float: right;
+              font-size: 15px;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+
+              transition: all 0.3s ease 0s;
+
+              &:hover {
+                color: $theme-color;
+              }
+            }
+          }
+
+          button {
+            background-color: $theme-color;
+            border: medium none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+            border-radius: 2px;
+            width: 100%;
+
+            &:hover {
+              background-color: $theme-color;
+              color: #fff;
+            }
+          }
+
+          .new-member {
+            width: 100%;
+            text-align: center;
+
+            a {
+              color: $theme-color;
+            }
           }
         }
       }
     }
-
-    .auth-button {
-      margin-top: 35px;
-
-      input {
-        border: none;
-        color: #fff;
-        font-size: 17px;
-        font-weight: 500;
-        letter-spacing: 1px;
-        border-radius: 6px;
-        background-color: #4070f4;
-        cursor: pointer;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background-color: #265df2;
-        }
-      }
-    }
-
-    .login-signup {
-      margin-top: 30px;
-      text-align: center;
-    }
   }
+}
 
-  &.active {
-    .login {
-      margin-left: -50%;
-      opacity: 0;
-      transition: margin-left 0.18s ease, opacity 0.15s ease;
+.login-register-area {
+  @media #{$xs-layout} {
+    &.pb-100 {
+      padding-bottom: 60px;
     }
-
-    .signup {
-      opacity: 1;
-      transition: opacity 0.2s ease;
-    }
-
-    .auth-component {
-      height: 600px;
-    }
-  }
-
-  .signup {
-    opacity: 0;
-    transition: opacity 0.09s ease;
   }
 }

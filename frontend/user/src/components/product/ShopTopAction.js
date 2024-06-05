@@ -48,7 +48,7 @@ const ShopTopAction = ({
             setActiveLayout(e);
           }}
         >
-          <i className="fa-regular fa-list-ul"></i>
+          <i className="fa-regular fa-list"></i>
         </button>
       </div>
     </div>

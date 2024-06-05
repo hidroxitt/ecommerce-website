@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutDefault from "../../layouts/LayoutDefault";
@@ -10,10 +9,10 @@ const About = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | About us</title>
+        <title>ShopZone | About us</title>
         <meta
           name="description"
-          content="About page of flone react minimalist eCommerce template."
+          content="About page of ShopZone"
         />
       </MetaTags>
 
@@ -24,13 +23,10 @@ const About = () => {
 
         {/* text grid */}
         <TextGridOne spaceBottomClass="pb-70" />
+
       </LayoutDefault>
     </Fragment>
   );
-};
-
-About.propTypes = {
-  location: PropTypes.object
 };
 
 export default About;

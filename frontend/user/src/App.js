@@ -13,13 +13,15 @@ const HomePage = lazy(() => import("./pages/home/HomePage"));
 const ShopPage = lazy(() => import("./pages/shop/ShopPage"));
 
 // product pages
-const Product = lazy(() => import("./pages/shop-product/Product"));
+const ProductPage = lazy(() => import("./pages/shop-product/ProductPage"));
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
-const MyAccount = lazy(() => import("./pages/other/MyAccount"));
-const LoginRegister = lazy(() => import("./pages/auth/LoginRegister"));
+const MyAccount = lazy(() => import("./pages/my-account/MyAccount"));
+const MyStore = lazy(() => import("./pages/my-store/MyStore"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Signup = lazy(() => import("./pages/auth/Signup"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 const Cart = lazy(() => import("./pages/other/Cart"));
@@ -34,9 +36,8 @@ const App = props => {
     props.dispatch(
       loadLanguages({
         languages: {
+          vn: require("./translations/vietnamese.json"),
           en: require("./translations/english.json"),
-          fn: require("./translations/french.json"),
-          de: require("./translations/germany.json")
         }
       })
     );
@@ -48,8 +49,8 @@ const App = props => {
         <ScrollToTop>
           <Suspense
             fallback={
-              <div className="flone-preloader-wrapper">
-                <div className="flone-preloader">
+              <div className="shopzone-preloader-wrapper">
+                <div className="shopzone-preloader">
                   <span></span>
                   <span></span>
                 </div>
@@ -57,6 +58,7 @@ const App = props => {
             }
           >
             <Switch>
+              {/* Homepages */}
               <Route
                 exact
                 path={process.env.PUBLIC_URL + "/"}
@@ -65,7 +67,7 @@ const App = props => {
 
               {/* Shop pages */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                path={process.env.PUBLIC_URL + "/shop"}
                 component={ShopPage}
               />
 
@@ -73,7 +75,7 @@ const App = props => {
               <Route
                 path={process.env.PUBLIC_URL + "/product/:id"}
                 render={routeProps => (
-                  <Product {...routeProps} key={routeProps.match.params.id} />
+                  <ProductPage {...routeProps} key={routeProps.match.params.id} />
                 )}
               />
 
@@ -91,17 +93,20 @@ const App = props => {
                 component={MyAccount}
               />
               <Route
-                path={process.env.PUBLIC_URL + "/login-register"}
-                component={LoginRegister}
+                path={process.env.PUBLIC_URL + "/my-store"}
+                component={MyStore}
               />
+              {/* Auth pages */}
               <Route
-                path={process.env.PUBLIC_URL + "/forgot-password"}
-                component={ForgotPassword}
-              />
+                path={process.env.PUBLIC_URL + "/login"}
+                component={Login} />
               <Route
-                path={process.env.PUBLIC_URL + "/reset-password"}
-                component={ResetPassword}
-              />
+                path={process.env.PUBLIC_URL + "/signup"}
+                component={Signup} />
+              <Route path={process.env.PUBLIC_URL + "/forgot-password"}
+                component={ForgotPassword} />
+              <Route path={process.env.PUBLIC_URL + "/reset-password"}
+                component={ResetPassword} />
               <Route
                 path={process.env.PUBLIC_URL + "/cart"}
                 component={Cart}
@@ -125,6 +130,8 @@ const App = props => {
               />
 
               <Route exact component={NotFound} />
+
+
             </Switch>
           </Suspense>
         </ScrollToTop>

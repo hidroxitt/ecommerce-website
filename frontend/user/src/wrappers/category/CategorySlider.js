@@ -3,6 +3,7 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import categoryData from "../../data/category/category-two.json";
 import CategorySingle from "../../components/category/CategorySingle.js";
+import SectionTitleFour from "../../components/section-title/SectionTitleFour.js";
 
 const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
   // swiper slider settings
@@ -27,10 +28,13 @@ const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
   };
   return (
     <div
-      className={`collections-area ${spaceTopClass ? spaceTopClass : ""}  ${spaceBottomClass ? spaceBottomClass : ""
-        }`}
+      className={`collections-area ${spaceTopClass ? spaceTopClass : ""}  ${
+        spaceBottomClass ? spaceBottomClass : ""
+      }`}
     >
       <div className="container">
+        {/* section title */}
+        <SectionTitleFour titleText="Collections" spaceBottomClass="mb-40" />
         <div className="collection-wrap">
           <div className="collection-active">
             <Swiper {...settings}>

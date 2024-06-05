@@ -8,6 +8,26 @@ const MobileNavMenu = ({ strings }) => {
     <nav className="offcanvas-navigation" id="offcanvas-navigation">
       <ul>
         <li>
+          <Link to={process.env.PUBLIC_URL + "/login"}>
+            {strings["login"]}
+          </Link>
+        </li>
+        <li>
+          <Link to={process.env.PUBLIC_URL + "/signup"}>
+            {strings["signup"]}
+          </Link>
+        </li>
+        <li>
+          <Link to={process.env.PUBLIC_URL + "/my-account"}>
+            {strings["my_account"]}
+          </Link>
+        </li>
+        <li>
+          <Link to={process.env.PUBLIC_URL + "/my-store"}>
+            {strings["my_store"]}
+          </Link>
+        </li>
+        <li>
           <Link to={process.env.PUBLIC_URL + "/contact"}>
             {strings["contact_us"]}
           </Link>

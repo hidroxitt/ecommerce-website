@@ -12,10 +12,10 @@ const Checkout = ({ cartItems, currency }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Checkout</title>
+        <title>ShopZone | Checkout</title>
         <meta
           name="description"
-          content="Checkout page of flone react minimalist eCommerce template."
+          content="Checkout page of ShopZone"
         />
       </MetaTags>
 
@@ -201,11 +201,11 @@ const Checkout = ({ cartItems, currency }) => {
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
                     <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-cash"></i>
+                      <i className="fa-solid fa-wallet"></i>
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart to checkout <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Shop Now
                       </Link>
                     </div>
@@ -222,8 +222,7 @@ const Checkout = ({ cartItems, currency }) => {
 
 Checkout.propTypes = {
   cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  location: PropTypes.object
+  currency: PropTypes.object
 };
 
 const mapStateToProps = state => {

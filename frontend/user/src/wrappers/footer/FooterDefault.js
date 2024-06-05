@@ -88,8 +88,8 @@ const FooterDefault = ({
           >
             <div
               className={`${sideMenu
-                ? "footer-widget mb-30 ml-95"
-                : "footer-widget mb-30 ml-50"
+                  ? "footer-widget mb-30 ml-95"
+                  : "footer-widget mb-30 ml-50"
                 }`}
             >
               <div className="footer-title">
@@ -120,8 +120,8 @@ const FooterDefault = ({
               }`}
           >
             <div className={`${sideMenu
-              ? "footer-widget mb-30 ml-145"
-              : "footer-widget mb-30 ml-75"
+                ? "footer-widget mb-30 ml-145"
+                : "footer-widget mb-30 ml-75"
               }`}>
               <div className="footer-title">
                 <h3>FOLLOW US</h3>
@@ -181,7 +181,7 @@ const FooterDefault = ({
         className={`scroll-top ${scroll > top ? "show" : ""}`}
         onClick={() => scrollToTop()}
       >
-        <i className="fa-regular fa-angles-up"></i>
+        <i className="fa-regular fa-chevrons-up"></i>
       </button>
     </footer>
   );

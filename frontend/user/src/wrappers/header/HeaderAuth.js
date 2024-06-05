@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import Logo from "../../components/header/Logo";
+import MobileMenu from "../../components/header/MobileMenu";
+import HeaderTop from "../../components/header/HeaderTop";
 
-const HeaderOne = ({
+const HeaderAuth = ({
     layout,
     top,
     borderStyle,
@@ -34,6 +36,10 @@ const HeaderOne = ({
                     } header-top-area ${borderStyle === "fluid-border" ? "border-none" : ""
                     }`}
             >
+                <div className={layout === "container-fluid" ? layout : "container"}>
+                    {/* header top */}
+                    <HeaderTop borderStyle={borderStyle} />
+                </div>
             </div>
 
             <div
@@ -49,16 +55,18 @@ const HeaderOne = ({
                         </div>
                     </div>
                 </div>
+                {/* mobile menu */}
+                <MobileMenu />
             </div>
         </header>
     );
 };
 
-HeaderOne.propTypes = {
+HeaderAuth.propTypes = {
     borderStyle: PropTypes.string,
     headerPaddingClass: PropTypes.string,
     layout: PropTypes.string,
     top: PropTypes.string
 };
 
-export default HeaderOne;
+export default HeaderAuth;

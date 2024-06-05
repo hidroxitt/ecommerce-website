@@ -9,7 +9,7 @@ import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
 
-const ShopPage = ({ products }) => {
+const ShopGridStandard = ({ products }) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -47,8 +47,8 @@ const ShopPage = ({ products }) => {
     return (
         <Fragment>
             <MetaTags>
-                <title>Flone | Shop Page</title>
-                <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
+                <title>ShopZone | Shop Page</title>
+                <meta name="description" content="Shop page of ShopZone" />
             </MetaTags>
 
             <LayoutDefault headerTop="visible">
@@ -90,8 +90,7 @@ const ShopPage = ({ products }) => {
     )
 }
 
-ShopPage.propTypes = {
-    location: PropTypes.object,
+ShopGridStandard.propTypes = {
     products: PropTypes.array
 }
 
@@ -101,4 +100,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ShopPage);
+export default connect(mapStateToProps)(ShopGridStandard);

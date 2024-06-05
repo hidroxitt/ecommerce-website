@@ -66,11 +66,12 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                                 <h4>White Lewis</h4>
                               </div>
                               <div className="review-rating">
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
                               </div>
                             </div>
                             <div className="review-left">
@@ -104,11 +105,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                                 <h4>White Lewis</h4>
                               </div>
                               <div className="review-rating">
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                                <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
                               </div>
                             </div>
                             <div className="review-left">
@@ -135,11 +136,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                           <div className="star-box">
                             <span>Your rating:</span>
                             <div className="ratting-star">
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
+                              <i className="fa-solid fa-star" style={{color: "#FFD43B"}}></i>
                             </div>
                           </div>
                           <div className="row">

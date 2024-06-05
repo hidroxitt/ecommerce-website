@@ -8,7 +8,7 @@ const ShopSearch = () => {
         <form className="pro-sidebar-search-form" action="#">
           <input type="text" placeholder="Search here..." />
           <button>
-            <i className="fa-light fa-magnifying-glass"></i>
+          <i className="fa-light fa-magnifying-glass"></i>
           </button>
         </form>
       </div>

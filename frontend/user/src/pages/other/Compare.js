@@ -22,10 +22,10 @@ const Compare = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Compare</title>
+        <title>ShopZone | Compare</title>
         <meta
           name="description"
-          content="Compare page of flone react minimalist eCommerce template."
+          content="Compare page of ShopZone"
         />
       </MetaTags>
 
@@ -54,7 +54,7 @@ const Compare = ({
                                         removeFromCompare(compareItem, addToast)
                                       }
                                     >
-                                      <i className="pe-7s-trash" />
+                                      <i className="fa-light fa-trash-can"></i>
                                     </button>
                                   </div>
                                   <Link
@@ -157,15 +157,18 @@ const Compare = ({
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {finalProductPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalProductPrice}
                                       </span>
                                       <span className="amount">
-                                        {finalDiscountedPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalDiscountedPrice}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {finalProductPrice + currency.currencySymbol}
+                                      {currency.currencySymbol +
+                                        finalProductPrice}
                                     </span>
                                   )}
                                 </td>
@@ -209,11 +212,11 @@ const Compare = ({
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
                     <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-shuffle"></i>
+                      <i className="fa-light fa-shuffle"></i>
                     </div>
                     <div className="item-empty-area__text">
                       No items found in compare <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Add Items
                       </Link>
                     </div>
@@ -233,7 +236,6 @@ Compare.propTypes = {
   cartItems: PropTypes.array,
   compareItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object,
   removeFromCompare: PropTypes.func
 };
 

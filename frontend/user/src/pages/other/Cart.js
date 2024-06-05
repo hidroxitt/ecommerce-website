@@ -29,10 +29,10 @@ const Cart = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Cart</title>
+        <title>ShopZone | Cart</title>
         <meta
           name="description"
-          content="Cart page of flone react minimalist eCommerce template."
+          content="Cart page of ShopZone"
         />
       </MetaTags>
 
@@ -125,15 +125,18 @@ const Cart = ({
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {finalProductPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalProductPrice}
                                       </span>
                                       <span className="amount">
-                                        {finalDiscountedPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalDiscountedPrice}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {finalProductPrice + currency.currencySymbol}
+                                      {currency.currencySymbol +
+                                        finalProductPrice}
                                     </span>
                                   )}
                                 </td>
@@ -180,9 +183,14 @@ const Cart = ({
                                 </td>
                                 <td className="product-subtotal">
                                   {discountedPrice !== null
-                                    ? (finalDiscountedPrice * cartItem.quantity).toFixed(2) + currency.currencySymbol
-                                    :
-                                    (finalProductPrice * cartItem.quantity).toFixed(2) + currency.currencySymbol}
+                                    ? currency.currencySymbol +
+                                    (
+                                      finalDiscountedPrice * cartItem.quantity
+                                    ).toFixed(2)
+                                    : currency.currencySymbol +
+                                    (
+                                      finalProductPrice * cartItem.quantity
+                                    ).toFixed(2)}
                                 </td>
 
                                 <td className="product-remove">
@@ -191,7 +199,7 @@ const Cart = ({
                                       removeFromCart(cartItem, addToast)
                                     }
                                   >
-                                    <i className="fa fa-times"></i>
+                                    <i className="fa-regular fa-xmark"></i>
                                   </button>
                                 </td>
                               </tr>
@@ -207,7 +215,7 @@ const Cart = ({
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                          to={process.env.PUBLIC_URL + "/shop"}
                         >
                           Continue Shopping
                         </Link>
@@ -317,11 +325,11 @@ const Cart = ({
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
                     <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-cart"></i>
+                      <i className="fa-light fa-cart-shopping"></i>
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Shop Now
                       </Link>
                     </div>
@@ -341,7 +349,6 @@ Cart.propTypes = {
   cartItems: PropTypes.array,
   currency: PropTypes.object,
   decrementQty: PropTypes.func,
-  location: PropTypes.object,
   removeAllFromCart: PropTypes.func,
   removeFromCart: PropTypes.func
 };

@@ -77,12 +77,12 @@ function ProductModal(props) {
     },
     renderPrevButton: () => (
       <button className="swiper-button-prev ht-swiper-button-nav">
-        <i className="pe-7s-angle-left" />
+        <i className="fa-light fa-angle-left"></i>
       </button>
     ),
     renderNextButton: () => (
       <button className="swiper-button-next ht-swiper-button-nav">
-        <i className="pe-7s-angle-right" />
+        <i className="fa-light fa-angle-right"></i>
       </button>
     )
   };
@@ -318,7 +318,7 @@ function ProductModal(props) {
                         }
                         onClick={() => addToWishlist(product, addToast)}
                       >
-                        <i className="pe-7s-like" />
+                        <i className="fa-light fa-heart"></i>
                       </button>
                     </div>
                     <div className="pro-details-compare">
@@ -332,7 +332,7 @@ function ProductModal(props) {
                         }
                         onClick={() => addToCompare(product, addToast)}
                       >
-                        <i className="pe-7s-shuffle" />
+                        <i class="fa-light fa-shuffle"></i>
                       </button>
                     </div>
                   </div>

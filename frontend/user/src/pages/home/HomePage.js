@@ -1,35 +1,30 @@
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutDefault from "../../layouts/LayoutDefault";
-import HeroSliderTen from "../../wrappers/hero-slider/HeroSliderTen";
+import HeroSlider from "../../wrappers/hero-slider/HeroSlider";
+import TabProduct from "../../wrappers/product/TabProduct";
 import CategorySlider from "../../wrappers/category/CategorySlider";
-import TabProductTen from "../../wrappers/product/TabProductTen";
 
 const HomePage = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>ShopZone | Fashion Home</title>
+        <title>ShopZone | Home</title>
         <meta
           name="description"
-          content="Fashion home of flone react minimalist eCommerce template."
+          content="ShopZone eCommerce"
         />
       </MetaTags>
-      <LayoutDefault
-        headerContainerClass="container-fluid"
-        headerPaddingClass="header-padding-2"
-        headerTop="visible"
-      >
+      <LayoutDefault>
         {/* hero slider */}
-        <HeroSliderTen />
-        {/* category */}
-        <CategorySlider spaceTopClass="pt-100" spaceBottomClass="pb-80" />
+        <HeroSlider />
+
+        {/* category slider */}
+        <CategorySlider spaceTopClass="pt-100" spaceBottomClass="pb-60" category="fashion" />
+
         {/* tab product */}
-        <TabProductTen
-          spaceBottomClass="pb-60"
-          spaceTopClass="pt-60"
-          category="electronics"
-        />
+        <TabProduct spaceTopClass="pt-60" spaceBottomClass="pb-60" category="fashion" />
+
       </LayoutDefault>
     </Fragment>
   );
