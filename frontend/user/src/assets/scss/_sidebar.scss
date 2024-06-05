@@ -6,42 +6,33 @@
       margin-right: 0;
     }
   }
-
   @media #{$md-layout} {
     &.mr-30 {
       margin-right: 0;
     }
-
     margin-top: 30px;
   }
-
   @media #{$xs-layout} {
     &.mr-30 {
       margin-right: 0;
     }
-
     margin-top: 30px;
   }
-
   @media #{$lg-layout} {
     &.ml-30 {
       margin-left: 0;
     }
   }
-
   @media #{$md-layout} {
     &.ml-30 {
       margin-left: 0;
     }
-
     margin-top: 30px;
   }
-
   @media #{$xs-layout} {
     &.ml-30 {
       margin-left: 0;
     }
-
     margin-top: 30px;
   }
 }
@@ -53,18 +44,15 @@
     color: #333;
     margin: 0;
   }
-
   .sidebar-widget-list {
     ul {
       li {
         align-items: center;
         position: relative;
         padding: 0px 0 15px;
-
         &:last-child {
           padding: 0px 0 0px;
         }
-
         .sidebar-widget-list-left {
           input {
             position: absolute;
@@ -72,17 +60,14 @@
             cursor: pointer;
             z-index: 999;
             width: auto;
-
-            &:checked~.checkmark {
-              background-color: #4070f4;
-              border: 2px solid #4070f4;
+            &:checked ~ .checkmark {
+              background-color: #3a86ff;
+              border: 2px solid #3a86ff;
             }
-
-            &:checked~.checkmark::after {
+            &:checked ~ .checkmark::after {
               display: block;
             }
           }
-
           .checkmark {
             position: absolute;
             left: 0;
@@ -91,13 +76,11 @@
             background-color: #fff;
             border: 2px solid #888888;
             border-radius: 3px;
-
             &::after {
               content: "";
               position: absolute;
               display: none;
             }
-
             &::after {
               left: 3px;
               top: 0px;
@@ -113,7 +96,6 @@
             }
           }
         }
-
         a,
         button {
           display: block;
@@ -125,7 +107,6 @@
           text-align: left;
           position: relative;
           text-transform: capitalize;
-
           span {
             color: #9a9a9a;
             font-weight: 500;
@@ -142,18 +123,15 @@
             transform: translateY(-50%);
             right: 0;
           }
-
           &:hover,
           &.active {
             span {
               color: #fff;
               background-color: $theme-color;
             }
-
-            &>.checkmark {
+            & > .checkmark {
               background-color: $theme-color;
               border-color: $theme-color;
-
               &:after {
                 display: block;
               }
@@ -175,17 +153,14 @@
       }
     }
   }
-
   .sidebar-widget-tag {
     ul {
       li {
         display: inline-block;
         margin: 0 10px 15px 0;
-
         @media #{$lg-layout} {
           margin: 0 5px 15px 0;
         }
-
         a,
         button {
           color: #424242;
@@ -195,14 +170,11 @@
           background-color: #f6f6f6;
           padding: 9px 17px 12px;
           text-transform: capitalize;
-
           @media #{$lg-layout} {
             padding: 9px 13px 12px;
           }
-
           line-height: 1;
           border-radius: 50px;
-
           &:hover,
           &.active {
             background-color: $theme-color;
@@ -217,7 +189,6 @@
 .pro-sidebar-search {
   .pro-sidebar-search-form {
     position: relative;
-
     input {
       background: transparent none repeat scroll 0 0;
       border: 1px solid #e6e6e6;
@@ -226,7 +197,6 @@
       height: 43px;
       padding: 2px 55px 2px 18px;
     }
-
     button {
       background: transparent none repeat scroll 0 0;
       border-color: #a1a5aa;
@@ -242,7 +212,6 @@
       color: #000;
       transition: all 0.3s ease 0s;
       font-size: 20px;
-
       &:hover {
         color: $theme-color;
       }
@@ -257,24 +226,19 @@
   margin: 0 0 20px;
   padding: 0 0 20px;
   align-items: center;
-
   &:last-child {
     border-bottom: none;
   }
-
   .sidebar-blog-img {
     flex: 0 0 70px;
     margin: 0 20px 0 0;
-
     @media #{$lg-layout} {
       margin: 0 8px 0 0;
     }
-
     img {
       width: 100%;
     }
   }
-
   .sidebar-blog-content {
     span {
       color: #333;
@@ -285,7 +249,6 @@
       font-weight: 400;
       line-height: 1;
     }
-
     h4 {
       font-size: 14px;
       margin: 5px 0 0;

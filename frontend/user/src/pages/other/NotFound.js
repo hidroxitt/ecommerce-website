@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
@@ -9,10 +8,10 @@ const NotFound = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Not Found</title>
+        <title>ShopZone | Not Found</title>
         <meta
           name="description"
-          content="404 page of flone react minimalist eCommerce template."
+          content="404 page of ShopZone"
         />
       </MetaTags>
 
@@ -38,7 +37,7 @@ const NotFound = () => {
                       className="searchform__input"
                     />
                     <button type="submit" className="searchform__submit">
-                      <i className="fa fa-search" />
+                      <i className="fa-light fa-magnifying-glass"></i>
                     </button>
                   </form>
                   <Link to={process.env.PUBLIC_URL + "/"} className="error-btn">
@@ -52,10 +51,6 @@ const NotFound = () => {
       </LayoutDefault>
     </Fragment>
   );
-};
-
-NotFound.propTypes = {
-  location: PropTypes.object
 };
 
 export default NotFound;

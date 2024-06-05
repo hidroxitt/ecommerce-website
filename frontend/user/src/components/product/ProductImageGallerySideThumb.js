@@ -96,7 +96,7 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
                           src={process.env.PUBLIC_URL + single}
                         >
                           <button>
-                            <i className="pe-7s-expand1"></i>
+                          <i className="fa-sharp fa-solid fa-expand"></i>
                           </button>
                         </LightgalleryItem>
                         <div className="single-image">

@@ -6,6 +6,7 @@ import { changeCurrency } from "../../redux/actions/currencyActions";
 import LanguageCurrencyChanger from "./sub-components/LanguageCurrencyChanger";
 
 const HeaderTop = ({
+  strings,
   currency,
   changeCurrency,
   currentLanguageCode,
@@ -25,11 +26,7 @@ const HeaderTop = ({
       />
       <div className="header-offer">
         <p>
-          Mừng sinh nhật! Giảm giá {" "}
-          <span>
-            {(20 * currency.currencyRate).toFixed(2) + currency.currencySymbol}
-          </span>
-          {" "} trên tổng hoá đơn
+          {strings["slogan_shopzone"]}
         </p>
       </div>
     </div>
@@ -37,6 +34,7 @@ const HeaderTop = ({
 };
 
 HeaderTop.propTypes = {
+  strings: PropTypes.object,
   borderStyle: PropTypes.string,
   changeCurrency: PropTypes.func,
   currency: PropTypes.object,

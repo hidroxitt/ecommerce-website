@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { changeLanguage } from "redux-multilanguage";
+import { changeLanguage, multilanguage } from "redux-multilanguage";
 import { Link } from "react-router-dom";
 
 const LanguageCurrencyChanger = ({
+  strings,
   currency,
   changeCurrency,
   currentLanguageCode,
@@ -25,12 +26,10 @@ const LanguageCurrencyChanger = ({
         <span>
           {currentLanguageCode === "en"
             ? "English"
-            : currentLanguageCode === "fn"
-              ? "French"
-              : currentLanguageCode === "de"
-                ? "Germany"
-                : ""}{" "}
-          <i className="fa-light fa-angle-down"></i>
+            : currentLanguageCode === "vn"
+              ? "Vietnamese"
+              : ""}{" "}
+          <i className="fa-regular fa-angle-down"></i>
         </span>
         <div className="lang-car-dropdown">
           <ul>
@@ -40,13 +39,8 @@ const LanguageCurrencyChanger = ({
               </button>
             </li>
             <li>
-              <button value="fn" onClick={e => changeLanguageTrigger(e)}>
-                French
-              </button>
-            </li>
-            <li>
-              <button value="de" onClick={e => changeLanguageTrigger(e)}>
-                Germany
+              <button value="vn" onClick={e => changeLanguageTrigger(e)}>
+                Vietnamese
               </button>
             </li>
           </ul>
@@ -54,15 +48,10 @@ const LanguageCurrencyChanger = ({
       </div>
       <div className="same-language-currency use-style">
         <span>
-          {currency.currencyName} <i className="fa-light fa-angle-down"></i>
+          {currency.currencyName} <i className="fa-regular fa-angle-down"></i>
         </span>
         <div className="lang-car-dropdown">
           <ul>
-            <li>
-              <button value="VND" onClick={e => changeCurrencyTrigger(e)}>
-                VND
-              </button>
-            </li>
             <li>
               <button value="USD" onClick={e => changeCurrencyTrigger(e)}>
                 USD
@@ -82,17 +71,21 @@ const LanguageCurrencyChanger = ({
         </div>
       </div>
       <div className="same-language-currency">
-        <Link to="/contact">Contact us</Link>
+        <Link to="/contact">{strings["start_selling"]}</Link>
+      </div>
+      <div className="same-language-currency">
+        <Link to="/contact">{strings["contact_us"]}</Link>
       </div>
     </div>
   );
 };
 
 LanguageCurrencyChanger.propTypes = {
+  strings: PropTypes.object,
   changeCurrency: PropTypes.func,
   currency: PropTypes.object,
   currentLanguageCode: PropTypes.string,
   dispatch: PropTypes.func
 };
 
-export default LanguageCurrencyChanger;
+export default multilanguage(LanguageCurrencyChanger);

@@ -10,14 +10,6 @@ const currencyReducer = (state = initState, action) => {
   if (action.type === CHANGE_CURRENCY) {
     const currencyName = action.payload.currencyName;
 
-    if (currencyName === "VND") {
-      return {
-        ...state,
-        currencySymbol: "đ",
-        currencyRate: action.payload.currencyRate,
-        currencyName
-      };
-    }
     if (currencyName === "USD") {
       return {
         ...state,

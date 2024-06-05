@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import MobileMenuSearch from "./sub-components/MobileSearch";
 import MobileNavMenu from "./sub-components/MobileNavMenu";
 import MobileLangCurChange from "./sub-components/MobileLangCurrChange";
-import MobileWidgets from "./sub-components/MobileWidgets";
 
 const MobileMenu = () => {
   useEffect(() => {
@@ -51,7 +50,7 @@ const MobileMenu = () => {
         id="mobile-menu-close-trigger"
         onClick={() => closeMobileMenu()}
       >
-        <i class="fa-light fa-xmark"></i>
+        <i className="fa-light fa-xmark"></i>
       </button>
       <div className="offcanvas-wrapper">
         <div className="offcanvas-inner-content">
@@ -64,8 +63,6 @@ const MobileMenu = () => {
           {/* mobile language and currency */}
           <MobileLangCurChange />
 
-          {/* mobile widgets */}
-          <MobileWidgets />
         </div>
       </div>
     </div>

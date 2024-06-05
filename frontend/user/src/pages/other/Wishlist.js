@@ -26,10 +26,10 @@ const Wishlist = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Wishlist</title>
+        <title>ShopZone | Wishlist</title>
         <meta
           name="description"
-          content="Wishlist page of flone react minimalist eCommerce template."
+          content="Wishlist page of ShopZone"
         />
       </MetaTags>
 
@@ -105,15 +105,18 @@ const Wishlist = ({
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {finalProductPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalProductPrice}
                                       </span>
                                       <span className="amount">
-                                        {finalDiscountedPrice + currency.currencySymbol}
+                                        {currency.currencySymbol +
+                                          finalDiscountedPrice}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {finalProductPrice + currency.currencySymbol}
+                                      {currency.currencySymbol +
+                                        finalProductPrice}
                                     </span>
                                   )}
                                 </td>
@@ -175,7 +178,7 @@ const Wishlist = ({
                                       removeFromWishlist(wishlistItem, addToast)
                                     }
                                   >
-                                    <i className="fa fa-times"></i>
+                                    <i className="fa-regular fa-xmark"></i>
                                   </button>
                                 </td>
                               </tr>
@@ -192,7 +195,7 @@ const Wishlist = ({
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                          to={process.env.PUBLIC_URL + "/shop"}
                         >
                           Continue Shopping
                         </Link>
@@ -211,11 +214,11 @@ const Wishlist = ({
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
                     <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-like"></i>
+                      <i className="fa-light fa-heart"></i>
                     </div>
                     <div className="item-empty-area__text">
                       No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Add Items
                       </Link>
                     </div>
@@ -234,7 +237,6 @@ Wishlist.propTypes = {
   addToCart: PropTypes.func,
   cartItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object,
   removeAllFromWishlist: PropTypes.func,
   removeFromWishlist: PropTypes.func,
   wishlistItems: PropTypes.array

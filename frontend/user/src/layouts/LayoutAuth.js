@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import HeaderOne from "../wrappers/header/HeaderAuth";
+import HeaderAuth from "../wrappers/header/HeaderAuth";
+import FooterDefault from "../wrappers/footer/FooterDefault";
 
 const LayoutAuth = ({
     children,
@@ -10,12 +11,17 @@ const LayoutAuth = ({
 }) => {
     return (
         <Fragment>
-            <HeaderOne
+            <HeaderAuth
                 layout={headerContainerClass}
                 top={headerTop}
                 headerPaddingClass={headerPaddingClass}
             />
             {children}
+            <FooterDefault
+                backgroundColorClass="bg-gray"
+                spaceTopClass="pt-100"
+                spaceBottomClass="pb-70"
+            />
         </Fragment>
     );
 };

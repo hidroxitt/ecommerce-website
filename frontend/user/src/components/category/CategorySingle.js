@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CategoryThreeSingle = ({ data, sliderClass }) => {
+const CategorySingle = ({ data, sliderClass }) => {
   return (
     <div className={`collection-product ${sliderClass ? sliderClass : ""}`}>
       <div className="collection-img">
@@ -15,20 +15,14 @@ const CategoryThreeSingle = ({ data, sliderClass }) => {
         <h4>
           <Link to={process.env.PUBLIC_URL + data.link}>{data.title}</Link>
         </h4>
-        <Link
-          to={process.env.PUBLIC_URL + data.link}
-          className="collection-btn"
-        >
-          SHOP NOW
-        </Link>
       </div>
     </div>
   );
 };
 
-CategoryThreeSingle.propTypes = {
+CategorySingle.propTypes = {
   data: PropTypes.object,
   sliderClass: PropTypes.string
 };
 
-export default CategoryThreeSingle;
+export default CategorySingle;

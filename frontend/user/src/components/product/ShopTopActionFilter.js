@@ -30,7 +30,7 @@ const ShopTopActionFilter = ({
 
         <div className="filter-active">
           <button onClick={e => toggleShopTopFilter(e)}>
-            <i className="fa fa-plus"></i> filter
+          <i className="fa-light fa-plus"></i> filter
           </button>
         </div>
       </div>

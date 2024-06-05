@@ -1,6 +1,6 @@
-/*--- flone preloader ---*/
+/*--- shopzone preloader ---*/
 
-.flone-preloader-wrapper {
+.shopzone-preloader-wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   z-index: 999999;
 }
 
-.flone-preloader {
+.shopzone-preloader {
   width: 50px;
   height: 50px;
   display: inline-block;
@@ -24,18 +24,18 @@
   margin-top: -25px;
 }
 
-.flone-preloader span {
+.shopzone-preloader span {
   position: absolute;
   display: inline-block;
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background: #4070f4;
+  background: #3a86ff;
   -webkit-animation: preloader 1.3s linear infinite;
   animation: preloader 1.3s linear infinite;
 }
 
-.flone-preloader span:last-child {
+.shopzone-preloader span:last-child {
   animation-delay: -0.8s;
   -webkit-animation-delay: -0.8s;
 }
@@ -64,4 +64,4 @@
   }
 }
 
-/*--- end of flone preloader ---*/
+/*--- end of shopzone preloader ---*/

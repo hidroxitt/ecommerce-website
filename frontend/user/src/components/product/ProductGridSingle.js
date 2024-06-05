@@ -65,6 +65,7 @@ const ProductGridSingle = ({
             ) : (
               ""
             )}
+
           </div>
           <div className="product-content text-center">
             <h3>
