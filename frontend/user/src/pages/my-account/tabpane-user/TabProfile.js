@@ -1,28 +1,43 @@
+import PropTypes from "prop-types";
 import React, { Fragment } from "react";
+import { multilanguage } from "redux-multilanguage";
 
-const TabProfile = () => {
+const TabProfile = ({ strings }) => {
     return (
         <Fragment>
-            <div>
-                <label>Full Name</label>
-            </div>
-            <div>
-                <label>Date of birth</label>
-            </div>
-            <div>
-                <label>Username</label>
-            </div>
-            <div>
-                <label>Email</label>
-            </div>
-            <div>
-                <label>Phone</label>
-            </div>
-            <div>
-                <label>Address</label>
+            <div className="myaccount-profile-wrapper">
+                <h4>{strings["personal_information"]}</h4>
+                <div className="input-profile-area">
+                    <label>{strings["full_name"]}</label>
+                    <input className="full-name" type="text" />
+                </div>
+                <div className="input-profile-area">
+                    <label>{strings["date_of_birth"]}</label>
+                    <input className="date-of-birth" type="date" />
+                </div>
+                <div className="input-profile-area">
+                    <label>{strings["username"]}</label>
+                    <input className="username-profile" type="text" />
+                </div>
+                <div className="input-profile-area">
+                    <label>{strings["email"]}</label>
+                    <input className="email-profile" type="text" />
+                </div>
+                <div className="input-profile-area">
+                    <label>{strings["number_phone"]}</label>
+                    <input className="phone-profile" type="text" />
+                </div>
+                <div className="input-profile-area">
+                    <label>{strings["address"]}</label>
+                    <input className="addresss-profile" type="text" />
+                </div>
             </div>
         </Fragment>
     );
 };
 
-export default TabProfile;
+TabProfile.propTypes = {
+    strings: PropTypes.object
+};
+
+export default multilanguage(TabProfile);

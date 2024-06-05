@@ -15,15 +15,15 @@ const HomePage = () => {
           content="ShopZone eCommerce"
         />
       </MetaTags>
-      <LayoutDefault>
+      <LayoutDefault headerTop="visible">
         {/* hero slider */}
         <HeroSlider />
 
         {/* category slider */}
-        <CategorySlider spaceTopClass="pt-100" spaceBottomClass="pb-60" category="fashion" />
+        <CategorySlider spaceTopClass="pt-100" spaceBottomClass="pb-60" />
 
         {/* tab product */}
-        <TabProduct spaceTopClass="pt-60" spaceBottomClass="pb-60" category="fashion" />
+        <TabProduct spaceTopClass="pt-60" spaceBottomClass="pb-60" />
 
       </LayoutDefault>
     </Fragment>

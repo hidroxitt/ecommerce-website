@@ -1,29 +1,20 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React from "react"
+import { multilanguage } from "redux-multilanguage";
 
-const SectionTitleTwo = ({
-  titleText,
-  subTitleText,
-  positionClass,
-  spaceClass
-}) => {
+const SectionTitleTwo = ({ strings, spaceBottomClass }) => {
   return (
     <div
-      className={`section-title-2 ${positionClass ? positionClass : ""} ${
-        spaceClass ? spaceClass : ""
-      }`}
+      className={`section-title-3 ${spaceBottomClass ? spaceBottomClass : ""}`}
     >
-      <h2>{titleText}</h2>
-      <p>{subTitleText}</p>
+      <h4>{strings["category_title"]}</h4>
     </div>
   );
 };
 
 SectionTitleTwo.propTypes = {
-  positionClass: PropTypes.string,
-  spaceClass: PropTypes.string,
-  subTitleText: PropTypes.string,
-  titleText: PropTypes.string
+  strings: PropTypes.object,
+  spaceBottomClass: PropTypes.string,
 };
 
-export default SectionTitleTwo;
+export default multilanguage(SectionTitleTwo);

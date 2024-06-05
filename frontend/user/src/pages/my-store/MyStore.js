@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import { Col, Row, Nav, Tab } from "react-bootstrap";
@@ -6,8 +7,9 @@ import TabProductManagement from "./tabpane-seller/TabProductManagement";
 import TabOrderManagement from "./tabpane-seller/TabOrderManagement";
 import TabPurchaseHistory from "../my-account/tabpane-user/TabPurchaseHistory";
 import TabStockManagement from "./tabpane-seller/TabStockManagement";
+import { multilanguage } from "redux-multilanguage";
 
-const MyStore = () => {
+const MyStore = ({ strings }) => {
 
     return (
         <Fragment>
@@ -31,16 +33,16 @@ const MyStore = () => {
                                             <Col className="tablist-wrapper" sm={3}>
                                                 <Nav variant="pills" className="flex-column">
                                                     <Nav.Item>
-                                                        <Nav.Link eventKey="first">Product Management</Nav.Link>
+                                                        <Nav.Link eventKey="first">{strings["product_management"]}</Nav.Link>
                                                     </Nav.Item>
                                                     <Nav.Item>
-                                                        <Nav.Link eventKey="second">Order Management</Nav.Link>
+                                                        <Nav.Link eventKey="second">{strings["order_management"]}</Nav.Link>
                                                     </Nav.Item>
                                                     <Nav.Item>
-                                                        <Nav.Link eventKey="three">Voucher Management</Nav.Link>
+                                                        <Nav.Link eventKey="three">{strings["voucher_management"]}</Nav.Link>
                                                     </Nav.Item>
                                                     <Nav.Item>
-                                                        <Nav.Link eventKey="four">Stock Management</Nav.Link>
+                                                        <Nav.Link eventKey="four">{strings["stock_management"]}</Nav.Link>
                                                     </Nav.Item>
                                                 </Nav>
                                             </Col>
@@ -72,4 +74,8 @@ const MyStore = () => {
     );
 };
 
-export default MyStore;
+MyStore.propTypes = {
+    strings: PropTypes.object
+};
+
+export default multilanguage(MyStore);

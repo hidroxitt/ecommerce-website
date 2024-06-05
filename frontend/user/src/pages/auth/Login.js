@@ -1,9 +1,11 @@
+import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import LayoutAuth from "../../layouts/LayoutAuth";
+import { multilanguage } from "redux-multilanguage";
 
-const Login = () => {
+const Login = ({ strings }) => {
     const [showPassword, setShowPassword] = useState([false, false, false]);
     const togglePasswordVisibility = (index) => {
         setShowPassword((prev) =>
@@ -25,11 +27,11 @@ const Login = () => {
                 <div className="login-register-area pt-60 pb-100">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-4 col-md-10 ml-auto mr-auto">
+                            <div className="col-lg-5 col-md-10 ml-auto mr-auto">
                                 <div className="login-register-wrapper pt-40">
                                     <div className="login-register-tab-list">
                                         <div className="nav-item">
-                                            <h4>Login</h4>
+                                            <h4>{strings["login"]}</h4>
                                         </div>
                                     </div>
                                     <div className="login-form-container">
@@ -56,18 +58,18 @@ const Login = () => {
                                                 <div className="button-box">
                                                     <div className="login-toggle-btn">
                                                         <input type="checkbox" />
-                                                        <label className="ml-10">Remember me</label>
+                                                        <label className="ml-10">{strings["remember_me"]}</label>
                                                         <Link to={process.env.PUBLIC_URL + "/forgot-password"}>
-                                                            Forgot Password?
+                                                            {strings["forgot_password"]}
                                                         </Link>
                                                     </div>
                                                     <button type="submit">
-                                                        <span>Login</span>
+                                                        <span>{strings["login"]}</span>
                                                     </button>
                                                     <div className="new-member mt-20">
-                                                        <span>Not a member? {" "}</span>
+                                                        <span>{strings["not_have_account"]} {" "}</span>
                                                         <Link to={process.env.PUBLIC_URL + "/signup"}>
-                                                            Signup
+                                                            {strings["signup"]}
                                                         </Link>
                                                     </div>
                                                 </div>
@@ -84,4 +86,8 @@ const Login = () => {
     );
 };
 
-export default Login;
+Login.propTypes = {
+    strings: PropTypes.object,
+};
+
+export default multilanguage(Login);

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import { Col, Row, Nav, Tab } from "react-bootstrap";
@@ -6,8 +7,9 @@ import TabProfile from "./tabpane-user/TabProfile";
 import TabSecurity from "./tabpane-user/TabSecurity";
 import TabOrder from "./tabpane-user/TabOrder";
 import TabPurchaseHistory from "./tabpane-user/TabPurchaseHistory";
+import { multilanguage } from "redux-multilanguage";
 
-const MyAccount = () => {
+const MyAccount = ({ strings }) => {
 
   return (
     <Fragment>
@@ -31,16 +33,16 @@ const MyAccount = () => {
                       <Col className="tablist-wrapper" sm={3}>
                         <Nav variant="pills" className="flex-column">
                           <Nav.Item>
-                            <Nav.Link eventKey="first">Profile</Nav.Link>
+                            <Nav.Link eventKey="first">{strings["profile_user"]}</Nav.Link>
                           </Nav.Item>
                           <Nav.Item>
-                            <Nav.Link eventKey="second">Security</Nav.Link>
+                            <Nav.Link eventKey="second">{strings["security_user"]}</Nav.Link>
                           </Nav.Item>
                           <Nav.Item>
-                            <Nav.Link eventKey="three">Order</Nav.Link>
+                            <Nav.Link eventKey="three">{strings["order_user"]}</Nav.Link>
                           </Nav.Item>
                           <Nav.Item>
-                            <Nav.Link eventKey="four">Purchase History</Nav.Link>
+                            <Nav.Link eventKey="four">{strings["purchase_history_user"]}</Nav.Link>
                           </Nav.Item>
                         </Nav>
                       </Col>
@@ -72,4 +74,8 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+MyAccount.propTypes = {
+  strings: PropTypes.object
+};
+
+export default multilanguage(MyAccount);

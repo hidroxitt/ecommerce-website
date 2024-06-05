@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 
-const HeroSliderSingle = ({ data, sliderClassName }) => {
+const HeroSliderSingle = ({ strings, data, sliderClassName }) => {
   return (
     <div
       className={`single-slider slider-height-1 bg-purple ${sliderClassName ? sliderClassName : ""
@@ -19,7 +20,7 @@ const HeroSliderSingle = ({ data, sliderClassName }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  {strings["shop_now"]}
                 </Link>
               </div>
             </div>
@@ -40,8 +41,9 @@ const HeroSliderSingle = ({ data, sliderClassName }) => {
 };
 
 HeroSliderSingle.propTypes = {
+  strings: PropTypes.object,
   data: PropTypes.object,
   sliderClassName: PropTypes.string
 };
 
-export default HeroSliderSingle;
+export default multilanguage(HeroSliderSingle);
