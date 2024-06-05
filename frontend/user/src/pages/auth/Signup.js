@@ -1,8 +1,11 @@
+import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutAuth from "../../layouts/LayoutAuth";
+import { multilanguage } from "redux-multilanguage";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ strings }) => {
     const [showPassword, setShowPassword] = useState([false, false, false]);
     const togglePasswordVisibility = (index) => {
         setShowPassword((prev) =>
@@ -24,11 +27,11 @@ const Signup = () => {
                 <div className="login-register-area pt-60 pb-100">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-4 col-md-10 ml-auto mr-auto">
+                            <div className="col-lg-5 col-md-10 ml-auto mr-auto">
                                 <div className="login-register-wrapper pt-40">
                                     <div className="login-register-tab-list">
                                         <div className="nav-item">
-                                            <h4>Signup</h4>
+                                            <h4>{strings["signup"]}</h4>
                                         </div>
                                     </div>
                                     <div className="login-form-container">
@@ -73,11 +76,17 @@ const Signup = () => {
                                                 <div className="button-box mb-20">
                                                     <div className="login-toggle-btn">
                                                         <input type="checkbox" />
-                                                        <label className="ml-10">I accepted all terms and conditions</label>
+                                                        <label className="ml-10">{strings["accept_term"]}</label>
                                                     </div>
                                                     <button type="submit">
-                                                        <span>Register</span>
+                                                        <span>{strings["signup"]}</span>
                                                     </button>
+                                                    <div className="new-member mt-20">
+                                                        <span>{strings["have_account"]} {" "}</span>
+                                                        <Link to={process.env.PUBLIC_URL + "/login"}>
+                                                            {strings["login"]}
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -92,4 +101,8 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+Signup.propTypes = {
+    strings: PropTypes.object,
+};
+
+export default multilanguage(Signup);
