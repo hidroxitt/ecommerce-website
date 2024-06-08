@@ -1,17 +1,13 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "admins")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +17,7 @@ public class Admin {
     private String fullName;
     private String email;
     private String phone;
+    private String avatar;
     private String token;
 
 
