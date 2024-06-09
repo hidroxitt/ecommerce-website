@@ -3,6 +3,8 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class User {
     private String fullName;
     private String email;
     private String phone;
+    private LocalDate dob;
     private String avatar;
     private String address;
     private String token;
