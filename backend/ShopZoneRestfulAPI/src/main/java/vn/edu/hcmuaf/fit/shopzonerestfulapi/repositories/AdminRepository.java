@@ -1,11 +1,9 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.models.Admin;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.models.AdminEntity;
 
-public interface AdminRepository extends JpaRepository<Admin, Long> {
-    Admin findOneById(Long id);
-    Admin findByUsername(String username);
-    Admin findByEmail(String email);
-    Admin findByUsernameAndEmail(String username, String email);
+public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
+    AdminEntity findByUsername(String username);
+    Boolean existsByUsername(String username);
 }
