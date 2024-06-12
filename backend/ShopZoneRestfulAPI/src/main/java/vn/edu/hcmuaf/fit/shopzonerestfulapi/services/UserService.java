@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.services;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.RegisterRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.models.Role;
@@ -19,6 +20,7 @@ public class UserService {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public ApiResponse<String> createUser(RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             return ApiResponse.<String>builder()
