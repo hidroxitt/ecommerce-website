@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.LoginRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.RegisterRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.AuthenticationResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.models.AdminEntity;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.models.Role;
@@ -37,7 +38,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ApiResponse<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -45,13 +46,21 @@ public class AuthController {
                 ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
-        return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
+        AuthenticationResponse authResponse = new AuthenticationResponse(token);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .code(200)
+                .message("Login successful!")
+                .result(authResponse)
+                .build();
     }
 
     @PostMapping("/register-user")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest registerRequest) {
+    public ApiResponse<String> registerUser(@RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .message("Username is already taken!")
+                    .build();
         }
 
         UserEntity userEntity = new UserEntity();
@@ -65,13 +74,19 @@ public class AuthController {
         userEntity.setRoles(Collections.singleton(role));
         userRepository.save(userEntity);
 
-        return new ResponseEntity<>("User registered successfully!", HttpStatus.OK);
+        return ApiResponse.<String>builder()
+                .code(200)
+                .message("User registered successfully!")
+                .build();
     }
 
     @PostMapping("/register-admin")
-    public ResponseEntity<String> registerAdmin(@RequestBody RegisterRequest registerRequest) {
+    public ApiResponse<String> registerAdmin(@RequestBody RegisterRequest registerRequest) {
         if (adminRepository.existsByUsername(registerRequest.getUsername())) {
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .message("Username is already taken!")
+                    .build();
         }
 
         AdminEntity adminEntity = new AdminEntity();
@@ -85,13 +100,19 @@ public class AuthController {
         adminEntity.setRoles(Collections.singleton(role));
         adminRepository.save(adminEntity);
 
-        return new ResponseEntity<>("Admin registered successfully!", HttpStatus.OK);
+        return ApiResponse.<String>builder()
+                .code(200)
+                .message("Admin registered successfully!")
+                .build();
     }
 
     @PostMapping("/register-seller")
-    public ResponseEntity<String> registerSeller(@RequestBody RegisterRequest registerRequest) {
+    public ApiResponse<String> registerSeller(@RequestBody RegisterRequest registerRequest) {
         if (sellerRepository.existsByUsername(registerRequest.getUsername())) {
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .message("Username is already taken!")
+                    .build();
         }
 
         SellerEntity sellerEntity = new SellerEntity();
@@ -105,6 +126,9 @@ public class AuthController {
         sellerEntity.setRoles(Collections.singleton(role));
         sellerRepository.save(sellerEntity);
 
-        return new ResponseEntity<>("Seller registered successfully!", HttpStatus.OK);
+        return ApiResponse.<String>builder()
+                .code(200)
+                .message("Seller registered successfully!")
+                .build();
     }
 }
