@@ -47,14 +47,6 @@ public class AuthService {
                     .build();
         }
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof UsernamePasswordAuthenticationToken) {
-            return ApiResponse.<String>builder()
-                    .code(400)
-                    .message("You are not logged in!")
-                    .build();
-        }
-
         request.getSession().invalidate();
         SecurityContextHolder.clearContext();
         request.getSession().setAttribute("logout", true);
