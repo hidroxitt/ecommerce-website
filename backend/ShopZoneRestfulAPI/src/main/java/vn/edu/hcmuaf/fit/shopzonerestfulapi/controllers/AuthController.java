@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,8 +30,13 @@ public class AuthController {
     private SellerService sellerService;
 
     @PostMapping("/login")
-    public ApiResponse<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-        return authService.login(loginRequest);
+    public ApiResponse<AuthResponse> login(HttpServletRequest request, @RequestBody LoginRequest loginRequest) {
+        return authService.login(request ,loginRequest);
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<String> logout(HttpServletRequest request) {
+        return authService.logout(request);
     }
 
     @PostMapping("/register-user")

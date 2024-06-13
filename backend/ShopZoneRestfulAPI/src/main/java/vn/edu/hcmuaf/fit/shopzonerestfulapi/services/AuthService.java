@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.services;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +20,8 @@ public class AuthService {
     private JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public ApiResponse<AuthResponse> login(LoginRequest loginRequest) {
+    public ApiResponse<AuthResponse> login(HttpServletRequest request, LoginRequest loginRequest) {
+        request.getSession().removeAttribute("logout");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -32,6 +34,33 @@ public class AuthService {
                 .code(200)
                 .message("Login successful!")
                 .result(authResponse)
+                .build();
+    }
+
+    @Transactional
+    public ApiResponse<String> logout(HttpServletRequest request) {
+        Boolean isLogout = (Boolean) request.getSession().getAttribute("logout");
+        if (isLogout != null && isLogout) {
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .message("You have already logged out!")
+                    .build();
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof UsernamePasswordAuthenticationToken) {
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .message("You are not logged in!")
+                    .build();
+        }
+
+        request.getSession().invalidate();
+        SecurityContextHolder.clearContext();
+        request.getSession().setAttribute("logout", true);
+        return ApiResponse.<String>builder()
+                .code(200)
+                .message("Logout successful!")
                 .build();
     }
 }
