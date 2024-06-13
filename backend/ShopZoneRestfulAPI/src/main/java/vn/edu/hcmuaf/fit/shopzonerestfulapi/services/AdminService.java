@@ -15,9 +15,12 @@ import java.util.Collections;
 
 @Service
 @AllArgsConstructor
-public class AdminSevice {
+public class AdminService {
+
     private AdminRepository adminRepository;
+
     private RoleRepository roleRepository;
+
     private PasswordEncoder passwordEncoder;
 
     @Transactional

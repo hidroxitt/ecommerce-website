@@ -34,7 +34,7 @@ public class SellerEntity {
 
     private String address;
 
-    private Integer status;
+    private String status;
 
     private String token;
 

@@ -23,17 +23,28 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfiguration {
+
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     private CustomUserDetailsService customUserDetailsService;
+
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    private final String[] PUBLIC_ENDPOINTS = {
+            "/auth/**",
+            "/admin/register",
+            "/user/register",
+            "/seller/register"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/auth/**")
-                        .permitAll()
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers("/user/update/**").permitAll()
+                        .requestMatchers("/seller/update/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception
