@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.LoginRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.RefreshTokenRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.AuthResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.security.JwtTokenProvider;
 
@@ -24,7 +25,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService customUserDetailsService;
 
-    public AuthResponse login(HttpServletRequest request, LoginRequest loginRequest) {
+    public ApiResponse<AuthResponse> login(HttpServletRequest request, LoginRequest loginRequest) {
         request.getSession().removeAttribute("logout");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
@@ -39,21 +40,31 @@ public class AuthService {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setToken(token);
         authResponse.setRefreshToken(refreshToken);
-        return authResponse;
+        return ApiResponse.<AuthResponse>builder()
+                .code(200)
+                .message("Login successfully")
+                .result(authResponse)
+                .build();
     }
 
-    public ResponseEntity<String> logout(HttpServletRequest request) {
+    public ApiResponse<String> logout(HttpServletRequest request) {
         Boolean logout = (Boolean) request.getSession().getAttribute("logout");
         if (logout != null && logout) {
-            return ResponseEntity.ok("You have already logged out!");
+            return ApiResponse.<String>builder()
+                    .code(400)
+                    .result("You have already logged out!")
+                    .build();
         }
         request.getSession().invalidate();
         SecurityContextHolder.clearContext();
         request.getSession().setAttribute("logout", true);
-        return ResponseEntity.ok("Logout successfully!");
+        return ApiResponse.<String>builder()
+                .code(200)
+                .result("Logout successfully")
+                .build();
     }
 
-    public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public ApiResponse<AuthResponse> refreshToken(RefreshTokenRequest refreshTokenRequest) {
         String username = jwtTokenProvider.extractUsername(refreshTokenRequest.getToken());
         var user = customUserDetailsService.loadUserByUsername(username);
         if (jwtTokenProvider.isValidateToken(refreshTokenRequest.getToken(), user)) {
@@ -63,8 +74,15 @@ public class AuthService {
             AuthResponse authResponse = new AuthResponse();
             authResponse.setToken(token);
             authResponse.setRefreshToken(refreshToken);
-            return authResponse;
+            return ApiResponse.<AuthResponse>builder()
+                    .code(200)
+                    .message("Refresh token successfully")
+                    .result(authResponse)
+                    .build();
         }
-        return null;
+        return ApiResponse.<AuthResponse>builder()
+                .code(400)
+                .message("Refresh token failed")
+                .build();
     }
 }

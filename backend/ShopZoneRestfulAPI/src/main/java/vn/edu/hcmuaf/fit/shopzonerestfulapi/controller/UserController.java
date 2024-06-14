@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpdateUserRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpgradeToSellerRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.UserEntity;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.service.UserService;
 
@@ -16,13 +18,18 @@ public class UserController {
 
     @PutMapping("/update/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<UserEntity> update(@PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest) {
-            return ResponseEntity.ok(userService.updateUser(userId, updateUserRequest));
+    public ApiResponse<UserEntity> update(@PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest) {
+            return userService.updateUser(userId, updateUserRequest);
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PutMapping("/upgradeToSeller/{userId}")
+    @PreAuthorize("hasRole('USER')")
+    public ApiResponse<UserEntity> upgradeToSeller(@PathVariable Long userId, @RequestBody UpgradeToSellerRequest upgradeToSellerRequest) {
+            return userService.upgradeToSeller(userId, upgradeToSellerRequest);
+    }
+
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<UserEntity> delete(@PathVariable Long userId) {
-            return ResponseEntity.ok(userService.deleteUser(userId));
+    public ApiResponse<UserEntity> delete(@PathVariable Long userId) {
+            return userService.deleteUser(userId);
     }
 }
