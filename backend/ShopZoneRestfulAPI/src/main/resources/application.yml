@@ -14,6 +14,20 @@ spring:
   sql:
     init:
       mode: always
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: shopzone.ecommere@hotmail.com
+    password: ShopZone123456
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 
 server:
   port: 8080
