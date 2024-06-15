@@ -2,13 +2,15 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     public void sendEmail(String to, String subject, String body) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -16,7 +18,7 @@ public class EmailService {
         helper.setText(body, true);
         helper.setTo(to);
         helper.setSubject(subject);
-        helper.setFrom("shopzone.ecommere@hotmail.com");
+        helper.setFrom("shopzoneecommere@gmail.com");
         javaMailSender.send(message);
     }
 }

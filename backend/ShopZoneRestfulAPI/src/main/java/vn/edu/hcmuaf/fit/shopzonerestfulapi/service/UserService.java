@@ -1,15 +1,14 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.service;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ChangePasswordRequest;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.SignupRequest;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpdateUserRequest;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpgradeToSellerRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.*;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.Role;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.UserEntity;
@@ -17,6 +16,7 @@ import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.AdminRepository;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.RoleRepository;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.UserRepository;
 
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +28,7 @@ public class UserService {
     private final AdminRepository adminRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     public ApiResponse<UserEntity> createUser(SignupRequest signupRequest) {
         // Kiểm tra xem username đã tồn tại trong userRepository chưa
@@ -58,7 +59,7 @@ public class UserService {
         Role role = roleRepository.findByName("USER");
         userEntity.setRole(Collections.singleton(role));
 
-        userEntity = userRepository.save(userEntity);
+        userRepository.save(userEntity);
 
         return ApiResponse.<UserEntity>builder()
                 .code(200)
@@ -67,23 +68,21 @@ public class UserService {
                 .build();
     }
 
-    public ApiResponse<UserEntity> updateUser(Long userId, UpdateUserRequest updateUserRequest) {
-        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long currentUserId = currentUser.getId();
-
-        if (!currentUserId.equals(userId)) {
+    public ApiResponse<UserEntity> updateUser(Authentication authentication, UpdateUserRequest updateUserRequest) {
+        String username = authentication.getName();
+        if (username == null) {
             return ApiResponse.<UserEntity>builder()
                     .code(400)
-                    .message("You are not allowed to update this user")
+                    .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with userId: " + userId));
+            UserEntity user = userRepository.findByUsername(username);
             user.setFullName(updateUserRequest.getFullName());
             user.setDob(updateUserRequest.getDob());
             user.setEmail(updateUserRequest.getEmail());
             user.setPhone(updateUserRequest.getPhone());
             user.setAddress(updateUserRequest.getAddress());
-            user = userRepository.save(user);
+            userRepository.save(user);
 
             return ApiResponse.<UserEntity>builder()
                     .code(200)
@@ -93,17 +92,15 @@ public class UserService {
         }
     }
 
-    public ApiResponse<UserEntity> upgradeToSeller(Long userId, UpgradeToSellerRequest upgradeToSellerRequest) {
-        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long currentUserId = currentUser.getId();
-
-        if (!currentUserId.equals(userId)) {
+    public ApiResponse<UserEntity> upgradeToSeller(Authentication authentication, UpgradeToSellerRequest upgradeToSellerRequest) {
+        String username = authentication.getName();
+        if (username == null) {
             return ApiResponse.<UserEntity>builder()
                     .code(400)
-                    .message("You are not allowed to upgrade this user")
+                    .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with userId: " + userId));
+            UserEntity user = userRepository.findByUsername(username);
             user.setFullName(upgradeToSellerRequest.getSellerName());
             user.setEmail(upgradeToSellerRequest.getEmail());
             user.setPhone(upgradeToSellerRequest.getPhone());
@@ -116,7 +113,7 @@ public class UserService {
             Set<Role> role = new HashSet<>();
             role.add(sellerRole);
             user.setRole(role);
-            user = userRepository.save(user);
+            userRepository.save(user);
 
             return ApiResponse.<UserEntity>builder()
                     .code(200)
@@ -126,16 +123,15 @@ public class UserService {
         }
     }
 
-    public ApiResponse<UserEntity> deleteUser(Long userId) {
-        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long currentUserId = currentUser.getId();
-        if (!currentUserId.equals(userId)) {
+    public ApiResponse<UserEntity> deleteUser(Authentication authentication) {
+        String username = authentication.getName();
+        if (username == null) {
             return ApiResponse.<UserEntity>builder()
                     .code(400)
-                    .message("You are not allowed to delete this user")
+                    .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with userId: " + userId));
+            UserEntity user = userRepository.findByUsername(username);
             userRepository.delete(user);
             return ApiResponse.<UserEntity>builder()
                     .code(200)
@@ -144,11 +140,64 @@ public class UserService {
         }
     }
 
-    public UserEntity changePassword(ChangePasswordRequest changePasswordRequest) {
-        return null;
+    public ApiResponse<UserEntity> changePassword(Authentication authentication, ChangePasswordRequest changePasswordRequest) {
+        String username = authentication.getName();
+        if (username == null) {
+            return ApiResponse.<UserEntity>builder()
+                    .code(400)
+                    .message("You are not logged in")
+                    .build();
+        } else {
+            UserEntity user = userRepository.findByUsername(username);
+            if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+                return ApiResponse.<UserEntity>builder()
+                        .code(400)
+                        .message("Old password is incorrect")
+                        .build();
+            } else {
+                user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+                userRepository.save(user);
+                return ApiResponse.<UserEntity>builder()
+                        .code(200)
+                        .message("Change password successfully")
+                        .result(user)
+                        .build();
+
+            }
+        }
     }
 
-    public UserEntity getAllUser() {
-        return null;
+    public String generateRandomPassword() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder password = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+        int LENGTH_PASSWORD = 12;
+
+        for (int i = 0; i < LENGTH_PASSWORD; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            password.append(CHARACTERS.charAt(randomIndex));
+        }
+        return password.toString();
+    }
+
+    public ApiResponse<UserEntity> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) throws MessagingException {
+        UserEntity user = userRepository.findByUsernameAndEmail(forgotPasswordRequest.getUsername(), forgotPasswordRequest.getEmail());
+        if (user == null) {
+            return ApiResponse.<UserEntity>builder()
+                    .code(400)
+                    .message("Username or email is incorrect")
+                    .build();
+        } else {
+            String newPassword = generateRandomPassword();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+
+            emailService.sendEmail(user.getEmail(), "New password", "Your new password is: " + newPassword);
+            return ApiResponse.<UserEntity>builder()
+                    .code(200)
+                    .message("New password has been sent to your email")
+                    .result(user)
+                    .build();
+        }
     }
 }

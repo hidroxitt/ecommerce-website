@@ -1,9 +1,13 @@
 package vn.edu.hcmuaf.fit.shopzonerestfulapi.controller;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ForgotPasswordRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpdateUserRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.UpgradeToSellerRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
@@ -16,20 +20,29 @@ import vn.edu.hcmuaf.fit.shopzonerestfulapi.service.UserService;
 public class UserController {
     private final UserService userService;
 
-    @PutMapping("/update/{userId}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ApiResponse<UserEntity> update(@PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest) {
-            return userService.updateUser(userId, updateUserRequest);
+    @PutMapping("/update")
+    public ApiResponse<UserEntity> update(Authentication authentication, @RequestBody UpdateUserRequest updateUserRequest) {
+            return userService.updateUser(authentication, updateUserRequest);
     }
 
-    @PutMapping("/upgradeToSeller/{userId}")
+    @PutMapping("/upgradeToSeller")
     @PreAuthorize("hasRole('USER')")
-    public ApiResponse<UserEntity> upgradeToSeller(@PathVariable Long userId, @RequestBody UpgradeToSellerRequest upgradeToSellerRequest) {
-            return userService.upgradeToSeller(userId, upgradeToSellerRequest);
+    public ApiResponse<UserEntity> upgradeToSeller(Authentication authentication, @RequestBody UpgradeToSellerRequest upgradeToSellerRequest) {
+            return userService.upgradeToSeller(authentication, upgradeToSellerRequest);
     }
 
-    @DeleteMapping("/delete/{userId}")
-    public ApiResponse<UserEntity> delete(@PathVariable Long userId) {
-            return userService.deleteUser(userId);
+    @DeleteMapping("/delete")
+    public ApiResponse<UserEntity> delete(Authentication authentication) {
+            return userService.deleteUser(authentication);
+    }
+
+    @PutMapping("/changePassword")
+    public ApiResponse<UserEntity> changePassword(Authentication authentication, @RequestBody ChangePasswordRequest changePasswordRequest) {
+            return userService.changePassword(authentication, changePasswordRequest);
+    }
+
+    @PostMapping("/forgotPassword")
+    public ApiResponse<UserEntity> forgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest) throws MessagingException {
+            return userService.forgotPassword(forgotPasswordRequest);
     }
 }
