@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,17 +31,13 @@ public class AdminEntity implements UserDetails {
     private String phone;
     private String avatar;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "admin_role",
-            joinColumns = @JoinColumn(name = "admin_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> role = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return Collections.singletonList(new SimpleGrantedAuthority(role.getName()));
     }
 
     @Override
