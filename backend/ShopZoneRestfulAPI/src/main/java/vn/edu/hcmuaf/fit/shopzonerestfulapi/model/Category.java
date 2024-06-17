@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.product.Product;
 
 import java.util.HashSet;
 import java.util.Set;

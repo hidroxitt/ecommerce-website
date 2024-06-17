@@ -1,12 +1,12 @@
-package vn.edu.hcmuaf.fit.shopzonerestfulapi.model;
+package vn.edu.hcmuaf.fit.shopzonerestfulapi.model.product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.Category;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "product")
