@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.AdminEntity;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.UserEntity;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.AdminRepository;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.UserRepository;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.AdminEntity;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.UserEntity;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.auth.AdminRepository;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.auth.UserRepository;
 
 @Service
 @RequiredArgsConstructor

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.Category;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.Review;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,18 +27,20 @@ public class Product {
     private int discount;
     private LocalDate offerEnd;
     private boolean isNew;
+    private int rating;
     private int saleCount;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private List<ProductVariant> variants = new ArrayList<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Variation> variations;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "product_image", joinColumns = @JoinColumn(name = "product_id"))
@@ -49,4 +49,18 @@ public class Product {
 
     private String shortDescription;
     private String fullDescription;
+
+    public void updateRating() {
+        int totalRating = 0;
+        int count = 0;
+        for (Review review : reviews) {
+            totalRating += review.getRating();
+            count++;
+        }
+        if (count > 0) {
+            this.rating = totalRating / count;
+        } else {
+            this.rating = 0;
+        }
+    }
 }
