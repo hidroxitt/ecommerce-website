@@ -9,5 +9,4 @@ import java.util.Set;
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     AdminEntity findByUsername(String username);
     Boolean existsByUsername(String username);
-    AdminEntity findByRole(Set<Role> role);
 }

@@ -45,4 +45,9 @@ public class UserController {
     public ApiResponse<UserEntity> forgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest) throws MessagingException {
             return userService.forgotPassword(forgotPasswordRequest);
     }
+
+    @GetMapping("/info")
+    public ApiResponse<UserEntity> getUserInfo(Authentication authentication) {
+            return userService.getUserInfo(authentication);
+    }
 }

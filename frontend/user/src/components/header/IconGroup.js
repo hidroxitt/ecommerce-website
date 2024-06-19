@@ -30,34 +30,6 @@ const IconGroup = ({
     <div
       className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
     >
-      <div className="same-style account-setting d-none d-lg-block">
-        <button
-          className="account-setting-active"
-          onClick={e => handleClick(e)}
-        >
-          <i className="fa-light fa-circle-user"></i>
-        </button>
-        <div className="account-dropdown">
-          <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login"}>{strings["login"]}</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/signup"}>{strings["signup"]}</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                {strings["my_account"]}
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-store"}>
-                {strings["my_store"]}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
       <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="fa-light fa-shuffle"></i>
@@ -103,6 +75,34 @@ const IconGroup = ({
         >
           <i className="fa-light fa-bars"></i>
         </button>
+      </div>
+      <div className="same-style account-setting d-none d-lg-block">
+        <button
+          className="account-setting-active"
+          onClick={e => handleClick(e)}
+        >
+          <i className="fa-light fa-circle-user"></i>
+        </button>
+        <div className="account-dropdown">
+          <ul>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/login"}>{strings["login"]}</Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/signup"}>{strings["signup"]}</Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                {strings["my_account"]}
+              </Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/my-store"}>
+                {strings["my_store"]}
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

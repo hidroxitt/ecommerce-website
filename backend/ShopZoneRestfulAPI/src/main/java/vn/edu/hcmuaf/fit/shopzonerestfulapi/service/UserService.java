@@ -2,10 +2,7 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.service;
 
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.*;
@@ -110,7 +107,7 @@ public class UserService {
             // Lấy vai trò SELLER từ cơ sở dữ liệu
             Role sellerRole = roleRepository.findByName("SELLER");
             // Tạo một tập hợp vai trò mới chỉ chứa vai trò SELLER
-            Set<Role> role = new HashSet<>();
+            Set<Role> role = new HashSet<>(user.getRole());
             role.add(sellerRole);
             user.setRole(role);
             userRepository.save(user);
@@ -196,6 +193,23 @@ public class UserService {
             return ApiResponse.<UserEntity>builder()
                     .code(200)
                     .message("New password has been sent to your email")
+                    .result(user)
+                    .build();
+        }
+    }
+
+    public ApiResponse<UserEntity> getUserInfo(Authentication authentication) {
+        String username = authentication.getName();
+        if (username == null) {
+            return ApiResponse.<UserEntity>builder()
+                    .code(400)
+                    .message("You are not logged in")
+                    .build();
+        } else {
+            UserEntity user = userRepository.findByUsername(username);
+            return ApiResponse.<UserEntity>builder()
+                    .code(200)
+                    .message("Get user info successfully")
                     .result(user)
                     .build();
         }
