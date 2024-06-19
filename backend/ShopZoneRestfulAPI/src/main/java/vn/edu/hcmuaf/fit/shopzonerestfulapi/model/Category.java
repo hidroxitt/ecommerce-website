@@ -23,6 +23,6 @@ public class Category {
     private String name;
     private String link;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Product> product = new HashSet<>();
 }
