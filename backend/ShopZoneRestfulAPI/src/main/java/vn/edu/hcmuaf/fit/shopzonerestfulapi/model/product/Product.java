@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.Category;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,22 +22,25 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String SKU;
     private String name;
-    private double price;
+    private BigDecimal price;
     private int discount;
     private LocalDate offerEnd;
     private boolean isNew;
     private int rating;
     private int saleCount;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private Set<Category> category = new HashSet<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private List<ProductVariant> variant = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Variation> variations;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "product_image", joinColumns = @JoinColumn(name = "product_id"))
@@ -46,4 +49,18 @@ public class Product {
 
     private String shortDescription;
     private String fullDescription;
+
+    public void updateRating() {
+        int totalRating = 0;
+        int count = 0;
+        for (Review review : reviews) {
+            totalRating += review.getRating();
+            count++;
+        }
+        if (count > 0) {
+            this.rating = totalRating / count;
+        } else {
+            this.rating = 0;
+        }
+    }
 }

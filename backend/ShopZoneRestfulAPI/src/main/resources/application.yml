@@ -34,4 +34,9 @@ server:
 
 jwt:
   expiration: 86400000
-  refreshExpiration: 604800000
+  refresh_expiration: 604800000
+
+cloudinary:
+  cloud_name: shopzone
+  api_key: 973372223751517
+  api_secret: k6fAXGJxxUSMV8GCGYFuAhA8DtI
