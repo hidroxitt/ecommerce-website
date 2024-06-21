@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ChangePasswordRequest;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.SignupRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.auth.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.auth.SignupRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.AdminEntity;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.Role;
@@ -25,16 +25,8 @@ public class AdminService {
     private final PasswordEncoder passwordEncoder;
 
     public ApiResponse<AdminEntity> createAdmin(SignupRequest signupRequest) {
-        // Kiểm tra xem username đã tồn tại trong userRepository chưa
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            return ApiResponse.<AdminEntity>builder()
-                    .code(400)
-                    .message("Username is already taken!")
-                    .build();
-        }
-
-        // Kiểm tra xem username đã tồn tại trong adminRepository chưa
-        if (adminRepository.existsByUsername(signupRequest.getUsername())) {
+        // Kiểm tra xem username đã tồn tại chưa
+        if (userRepository.existsByUsername(signupRequest.getUsername()) || adminRepository.existsByUsername(signupRequest.getUsername())) {
             return ApiResponse.<AdminEntity>builder()
                     .code(400)
                     .message("Username is already taken!")
@@ -48,17 +40,14 @@ public class AdminService {
         adminEntity.setFullName(signupRequest.getFullName());
         adminEntity.setEmail(signupRequest.getEmail());
         adminEntity.setPhone(signupRequest.getPhone());
-
         // Lấy role ADMIN từ roleRepository
-        Role role = roleRepository.findByName("ADMIN");
+        Role role = roleRepository.findByName("ADMIN").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         adminEntity.setRole(role);
-        // Lưu adminEntity vào adminRepository
-        adminRepository.save(adminEntity);
 
         return ApiResponse.<AdminEntity>builder()
                 .code(200)
                 .message("Admin registered successfully!")
-                .result(adminEntity)
+                .result(adminRepository.save(adminEntity))
                 .build();
     }
 
@@ -74,7 +63,7 @@ public class AdminService {
                     .message("You are not logged in!")
                     .build();
         } else {
-            AdminEntity admin = adminRepository.findByUsername(username);
+            AdminEntity admin = adminRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: Admin is not found."));
             if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), admin.getPassword())) {
                 return ApiResponse.<AdminEntity>builder()
                         .code(400)
@@ -82,11 +71,10 @@ public class AdminService {
                         .build();
             } else {
                 admin.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
-                adminRepository.save(admin);
                 return ApiResponse.<AdminEntity>builder()
                         .code(200)
                         .message("Change password successfully!")
-                        .result(admin)
+                        .result(adminRepository.save(admin))
                         .build();
             }
         }

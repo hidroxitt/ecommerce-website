@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long JWT_EXPIRATION;
 
-    @Value("${jwt.refreshExpiration}")
+    @Value("${jwt.refresh_expiration}")
     private long JWT_REFRESH_EXPIRATION;
 
     public String generateToken(UserDetails userDetails) {

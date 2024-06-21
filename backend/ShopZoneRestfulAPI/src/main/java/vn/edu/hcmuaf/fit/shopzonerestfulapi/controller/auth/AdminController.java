@@ -3,7 +3,7 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.controller.auth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.auth.ChangePasswordRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.AdminEntity;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.UserEntity;

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.*;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.auth.*;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.Role;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.auth.UserEntity;
@@ -29,22 +29,13 @@ public class UserService {
     private final EmailService emailService;
 
     public ApiResponse<UserEntity> createUser(SignupRequest signupRequest) {
-        // Kiểm tra xem username đã tồn tại trong userRepository chưa
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
+        // Kiểm tra xem username đã tồn tại chưa
+        if (userRepository.existsByUsername(signupRequest.getUsername()) || adminRepository.existsByUsername(signupRequest.getUsername())) {
             return ApiResponse.<UserEntity>builder()
                     .code(400)
                     .message("Username is already taken!")
                     .build();
         }
-
-        // Kiểm tra xem username đã tồn tại trong adminRepository chưa
-        if (adminRepository.existsByUsername(signupRequest.getUsername())) {
-            return ApiResponse.<UserEntity>builder()
-                    .code(400)
-                    .message("Username is already taken!")
-                    .build();
-        }
-
         // Tạo mới một UserEntity
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(signupRequest.getUsername());
@@ -54,15 +45,13 @@ public class UserService {
         userEntity.setPhone(signupRequest.getPhone());
 
         // Lấy role USER từ roleRepository
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         userEntity.setRole(Collections.singleton(role));
-
-        userRepository.save(userEntity);
 
         return ApiResponse.<UserEntity>builder()
                 .code(200)
                 .message("Create user successfully")
-                .result(userEntity)
+                .result(userRepository.save(userEntity))
                 .build();
     }
 
@@ -74,18 +63,17 @@ public class UserService {
                     .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findByUsername(username);
+            UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
             user.setFullName(updateUserRequest.getFullName());
             user.setDob(updateUserRequest.getDob());
             user.setEmail(updateUserRequest.getEmail());
             user.setPhone(updateUserRequest.getPhone());
             user.setAddress(updateUserRequest.getAddress());
-            userRepository.save(user);
 
             return ApiResponse.<UserEntity>builder()
                     .code(200)
                     .message("Update user successfully")
-                    .result(user)
+                    .result(userRepository.save(user))
                     .build();
         }
     }
@@ -98,7 +86,7 @@ public class UserService {
                     .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findByUsername(username);
+            UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
             user.setFullName(upgradeToSellerRequest.getSellerName());
             user.setEmail(upgradeToSellerRequest.getEmail());
             user.setPhone(upgradeToSellerRequest.getPhone());
@@ -106,17 +94,16 @@ public class UserService {
             user.setAvatar(upgradeToSellerRequest.getAvatar());
 
             // Lấy vai trò SELLER từ cơ sở dữ liệu
-            Role sellerRole = roleRepository.findByName("SELLER");
+            Role sellerRole = roleRepository.findByName("SELLER").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             // Tạo một tập hợp vai trò mới chỉ chứa vai trò SELLER
             Set<Role> role = new HashSet<>(user.getRole());
             role.add(sellerRole);
             user.setRole(role);
-            userRepository.save(user);
 
             return ApiResponse.<UserEntity>builder()
                     .code(200)
                     .message("Upgrade to seller successfully")
-                    .result(user)
+                    .result(userRepository.save(user))
                     .build();
         }
     }
@@ -129,7 +116,7 @@ public class UserService {
                     .message("Username is not found")
                     .build();
         } else {
-            UserEntity user = userRepository.findByUsername(username);
+            UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
             userRepository.delete(user);
             return ApiResponse.<UserEntity>builder()
                     .code(200)
@@ -146,7 +133,7 @@ public class UserService {
                     .message("You are not logged in")
                     .build();
         } else {
-            UserEntity user = userRepository.findByUsername(username);
+            UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
             if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
                 return ApiResponse.<UserEntity>builder()
                         .code(400)
@@ -154,11 +141,11 @@ public class UserService {
                         .build();
             } else {
                 user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
-                userRepository.save(user);
+
                 return ApiResponse.<UserEntity>builder()
                         .code(200)
                         .message("Change password successfully")
-                        .result(user)
+                        .result(userRepository.save(user))
                         .build();
 
             }
@@ -179,24 +166,17 @@ public class UserService {
     }
 
     public ApiResponse<UserEntity> forgotPassword(ForgotPasswordRequest forgotPasswordRequest) throws MessagingException {
-        UserEntity user = userRepository.findByUsernameAndEmail(forgotPasswordRequest.getUsername(), forgotPasswordRequest.getEmail());
-        if (user == null) {
-            return ApiResponse.<UserEntity>builder()
-                    .code(400)
-                    .message("Username or email is incorrect")
-                    .build();
-        } else {
-            String newPassword = generateRandomPassword();
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userRepository.save(user);
+        UserEntity user = userRepository.findByUsernameAndEmail(forgotPasswordRequest.getUsername(), forgotPasswordRequest.getEmail()).orElseThrow(() -> new RuntimeException("Error: User is not found."));
 
-            emailService.sendEmail(user.getEmail(), "New password", "Your new password is: " + newPassword);
-            return ApiResponse.<UserEntity>builder()
-                    .code(200)
-                    .message("New password has been sent to your email")
-                    .result(user)
-                    .build();
-        }
+        String newPassword = generateRandomPassword();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        emailService.sendEmail(user.getEmail(), "New password", "Your new password is: " + newPassword);
+
+        return ApiResponse.<UserEntity>builder()
+                .code(200)
+                .message("New password has been sent to your email")
+                .result(userRepository.save(user))
+                .build();
     }
 
     public ApiResponse<UserEntity> getUserInfo(Authentication authentication) {
@@ -207,7 +187,7 @@ public class UserService {
                     .message("You are not logged in")
                     .build();
         } else {
-            UserEntity user = userRepository.findByUsername(username);
+            UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
             return ApiResponse.<UserEntity>builder()
                     .code(200)
                     .message("Get user info successfully")

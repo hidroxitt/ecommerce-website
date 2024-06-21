@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request;
+package vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.auth;
 
 import lombok.Data;
 
