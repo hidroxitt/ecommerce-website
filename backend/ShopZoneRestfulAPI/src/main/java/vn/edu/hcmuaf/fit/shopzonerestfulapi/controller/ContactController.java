@@ -11,7 +11,7 @@ import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.service.EmailService;
 
 @RestController
-@RequestMapping("/api/contact")
+@RequestMapping("/contact")
 @RequiredArgsConstructor
 public class ContactController {
     private final EmailService emailService;

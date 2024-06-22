@@ -30,7 +30,9 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
             "/auth/**",
             "/user/**",
-            "/admin/**"
+            "/admin/**",
+            "/product/**",
+            "/contact/**",
     };
 
     @Bean
