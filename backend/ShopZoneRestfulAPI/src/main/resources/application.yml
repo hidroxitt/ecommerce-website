@@ -37,6 +37,6 @@ jwt:
   refresh_expiration: 604800000
 
 cloudinary:
-  cloud_name: shopzone
+  cloud_name: drwlbso1f
   api_key: 973372223751517
   api_secret: k6fAXGJxxUSMV8GCGYFuAhA8DtI
