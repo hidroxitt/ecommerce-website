@@ -67,7 +67,7 @@ public class SliderService {
                 .build();
     }
 
-    public ApiResponse<List<Slider>> getAllSlider() {
+    public ApiResponse<List<Slider>> getAllSliders() {
         return ApiResponse.<List<Slider>>builder()
                 .code(200)
                 .message("Get all sliders successfully")

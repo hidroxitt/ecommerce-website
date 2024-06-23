@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ReviewRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.SizeRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.VariationRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
+import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ProductResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.*;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.CategoryRepository;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.ProductRepository;
@@ -98,17 +99,17 @@ public class ProductService {
                 .build();
     }
 
-    public ApiResponse<Product> addReviewToProduct(Authentication authentication, long productId, ReviewRequest reviewRequest) {
+    public ApiResponse<ProductResponse> addReviewToProduct(Authentication authentication, long productId, ReviewRequest reviewRequest) {
         String username = authentication.getName();
         if (username == null) {
-            return ApiResponse.<Product>builder()
+            return ApiResponse.<ProductResponse>builder()
                     .code(401)
                     .message("Unauthorized!")
                     .build();
         }
         Product product = productRepository.findById(productId).orElse(null);
         if (product == null) {
-            return ApiResponse.<Product>builder()
+            return ApiResponse.<ProductResponse>builder()
                     .code(404)
                     .message("Product not found!")
                     .build();
@@ -122,11 +123,14 @@ public class ProductService {
 
         product.getReviews().add(review);
         product.updateRating();
+        productRepository.save(product);
 
-        return ApiResponse.<Product>builder()
+        ProductResponse productResponse = new ProductResponse(product);
+
+        return ApiResponse.<ProductResponse>builder()
                 .code(200)
                 .message("Success")
-                .result(productRepository.save(product))
+                .result(productResponse)
                 .build();
     }
 
@@ -139,11 +143,12 @@ public class ProductService {
         product.setRating(productRequest.getRating());
         product.setSaleCount(productRequest.getSaleCount());
 
-//        List<Category> categories = categoryRepository.findAllById(productRequest.getCategoryIds());
-//        product.setCategories(categories);
-//
-//        List<Variation> variations = productRequest.getVariations().stream().map(this::mapToVariation).collect(Collectors.toList());
-//        product.setVariations(variations);
+        List<Category> categories = categoryRepository.findAllById(productRequest.getCategoryIds());
+        product.setCategories(categories);
+
+        List<Variation> variations = productRequest.getVariations().stream().map(this::mapToVariation).collect(Collectors.toList());
+        variations.forEach(variation -> variation.setProduct(product));
+        product.setVariations(variations);
 
         List<String> imageUrls = images.stream()
                 .map(this::uploadImageToCloudinary)
@@ -159,7 +164,9 @@ public class ProductService {
         Variation variation = new Variation();
         variation.setColor(variationRequest.getColor());
         variation.setImage(variationRequest.getImage());
-        List<Size> sizes = variationRequest.getSizes().stream().map(this::mapToSize).collect(Collectors.toList());
+        List<Size> sizes = variationRequest.getSizes().stream()
+                .map(this::mapToSize)
+                .collect(Collectors.toList());
         variation.setSizes(sizes);
         return variation;
     }
@@ -173,7 +180,8 @@ public class ProductService {
 
     private String uploadImageToCloudinary(MultipartFile image) {
         try {
-            Map uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.asMap("folder", "shopzone/product"));
+            Map uploadResult = cloudinary.uploader().upload(image.getBytes(),
+                    ObjectUtils.asMap("folder", "shopzone/product"));
             return (String) uploadResult.get("url");
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image to Cloudinary", e);

@@ -16,8 +16,8 @@ public class ProductRequest {
     private boolean isNew;
     private int rating;
     private int saleCount;
-//    private List<Long> categoryIds;
-//    private List<VariationRequest> variations;
+    private List<Long> categoryIds;
+    private List<VariationRequest> variations;
     private String shortDescription;
     private String fullDescription;
 }

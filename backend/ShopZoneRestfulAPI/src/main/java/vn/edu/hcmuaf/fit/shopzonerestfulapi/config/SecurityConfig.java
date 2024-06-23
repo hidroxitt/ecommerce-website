@@ -33,6 +33,7 @@ public class SecurityConfig {
             "/admin/**",
             "/product/**",
             "/contact/**",
+            "/category/**",
     };
 
     @Bean
