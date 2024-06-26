@@ -1,0 +1,16 @@
+<h6 th:fragment="methodPaymentIcon(value)" th:with="v=${value.name}">
+  <th:block th:if="${v eq 'PAYPAL'}">
+    <i class="fa fa-paypal text-primary mr-2" aria-hidden="true"></i>
+    Ví PayPal
+  </th:block>
+
+  <th:block th:if="${v eq 'VNPAY'}">
+    <img width="20px" th:src="@{/resources/img/v-vnpay.svg}"/>
+    Ví Vnpay
+  </th:block>
+
+  <th:block th:if="${v eq 'COD'}">
+    <i class="fa fa-money text-success mr-2" aria-hidden="true"></i>
+    COD
+  </th:block>
+</h6>

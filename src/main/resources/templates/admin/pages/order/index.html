@@ -1,0 +1,55 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content" th:replace="~{admin/common/data-layout :: dataLayout('admin/pages/order/search-form', 'admin/pages/order/action', ~{::.table-responsive}, 'Quản Lý Hóa Đơn', 'Danh sách hóa đơn', true)}">
+        <div class="table-responsive">
+            <table class="table table-bordered w-100" id="dataTable">
+                <thead>
+                <tr>
+                    <th class="table-column-header" data-col="stt" data-show="true">STT</th>
+                    <th class="table-column-header" data-col="code" data-show="true">Mã hóa đơn</th>
+                    <th class="table-column-header" data-col="createdBy" data-show="true">Người mua</th>
+                    <th class="table-column-header" data-col="phone" data-show="false">Số điện thoại</th>
+                    <th class="table-column-header" data-col="address" data-show="false">Địa chỉ</th>
+                    <th class="table-column-header" data-col="createdDate" data-show="true">Ngày mua</th>
+                    <th class="table-column-header" data-col="method" data-show="true">Hình thức TT</th>
+                    <th class="table-column-header" data-col="userNote" data-show="false">User lý do</th>
+                    <th class="table-column-header" data-col="adminNote" data-show="false">Admin lý do</th>
+                    <th class="table-column-header" data-col="status" data-show="true">Trạng thái</th>
+                    <th class="table-column-header" data-col="total" data-show="true">Tổng tiền</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="item,_status: ${_PAGING_KEY.items}">
+                    <tr>
+                        <td data-col="stt" th:text="${ _status.index + 1 + ( (_PAGING_KEY.page - 1) * _PAGING_KEY.pageSize )}"/>
+                        <td data-col="code" th:text="${ item.code }"/>
+                        <td data-col="createdBy" th:text="${ item.createdBy }"/>
+                        <td data-col="phone" th:text="${ item.phone }"/>
+                        <td data-col="address" th:text="${ item.address }"/>
+                        <td data-col="createdDate" th:text="${#dates.format(item.createdDate, 'dd/MM/YYYY HH:mm')}" />
+                        <td data-col="method">
+                            <div th:replace="~{_common/method-payment-icon :: methodPaymentIcon(${item.methodPayment})}"/>
+                        </td>
+                        <td data-col="userNote" th:text="${ item.userNote }"/>
+                        <td data-col="adminNote" th:text="${ item.adminNote }"/>
+                        <td data-col="status">
+                            <div th:replace="~{_common/status-order :: statusOrder(${item.status})}" />
+                        </td>
+                        <td data-col="total" th:text="${#numbers.formatCurrency(item.total)}"/>
+                        <td class="user-action">
+                            <div>
+                                <i class="fa fa-ellipsis-v cursor-pointer" aria-hidden="true"></i>
+                                <ul th:replace="~{admin/pages/order/table-action :: actionList(${item.code}, ${item.status})}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <div th:replace="~{_common/modal-cancel :: modalCancel(${'reject-order-' + item.code}, 'Từ chối đơn hàng', 'get', @{/admin/order/change-status?status=REJECT&oCode=__${code}__})}" />
+                </th:block>
+                </tbody>
+            </table>
+
+            <div th:replace="~{admin/pages/order/modal-detail :: modalDetail()}" />
+        </div>
+    </div>
+</div>

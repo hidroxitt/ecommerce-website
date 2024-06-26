@@ -1,0 +1,26 @@
+<div class="d-flex flex-column profile-sidebar" th:fragment="profileSidebar()">
+    <div>
+        <div th:class="${#strings.startsWith(currentUri, '/lich-su-mua-hang') ? 'active' : ''}">
+            <i class="fa fa-shopping-bag fa-lg" aria-hidden="true"></i>
+            <a th:href="@{/lich-su-mua-hang}">Lịch sử mua hàng</a>
+        </div>
+    </div>
+    <div>
+        <div th:class="${#strings.startsWith(currentUri, '/ho-so/tai-khoan') ? 'active' : ''}">
+            <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+            <a th:href="@{/ho-so/tai-khoan}">Tài khoản của bạn</a>
+        </div>
+    </div>
+    <div>
+        <div th:class="${#strings.startsWith(currentUri, '/ho-so/doi-mat-khau') ? 'active' : ''}">
+            <i class="fa fa-shield fa-lg" aria-hidden="true"></i>
+            <a th:href="@{/ho-so/doi-mat-khau}">Đổi mật khẩu</a>
+        </div>
+    </div>
+    <div>
+        <div>
+            <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
+            <a href="javascript:void(0)" data-toggle="modal" data-target="#logoutId">Đăng xuất</a>
+        </div>
+    </div>
+</div>

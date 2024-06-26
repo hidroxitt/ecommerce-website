@@ -1,0 +1,41 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content" th:replace="~{admin/common/data-layout :: dataLayout('admin/pages/user/search-form', null, ~{::.table-responsive}, 'Quản Lý Người Dùng', 'Danh sách người dùng', true)}">
+        <div class="table-responsive">
+            <table class="table table-bordered w-100" id="dataTable">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="item,_status : ${_PAGING_KEY.items}">
+                    <tr>
+                        <div th:replace="~{admin/pages/user/modal-form :: modalForm(${item}, ${'update-user-' + item.id}, 'Cập nhật người dùng', @{/admin/user/update})}" />
+                        <td th:text="${ _status.index + 1 + ( (_PAGING_KEY.page - 1) * _PAGING_KEY.pageSize )}"/>
+                        <td th:text="${ item.lastName + ' ' + item.firstName }"/>
+                        <td th:text="${ item.email }"/>
+                        <td th:text="${ item.phone }"/>
+                        <td th:text="${ item.address }"/>
+                        <td th:text="${#dates.format(item.createdDate, 'dd/MM/yyyy')}"/>
+                        <td th:text="${ item.active ? 'Hoạt động' : 'Không hoạt động' }"/>
+                        <td class="user-action">
+                            <div>
+                                <i class="fa fa-ellipsis-v cursor-pointer" aria-hidden="true"></i>
+                                <div th:replace="~{admin/pages/user/table-action :: actionList(${item.email}, ${item.id}, ${item.active})}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

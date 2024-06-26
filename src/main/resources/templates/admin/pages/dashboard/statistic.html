@@ -1,0 +1,29 @@
+<div th:fragment="statistic(title, _revenue, _cost, _profit, _totalOrder, _hrefOrder)">
+    <!-- Page Heading -->,
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800" th:text="${title}"/>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div th:replace="~{admin/pages/dashboard/card :: card('border-left-primary', 'text-primary', 'javascript:void(0)', 'Doanh Số', ${#numbers.formatCurrency(_revenue) + 'đ'}, 'fa fa-money')}"/>
+        </div>
+
+        <!-- Earnings (Monthly) -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div th:replace="~{admin/pages/dashboard/card :: card('border-left-success', 'text-primary', 'javascript:void(0)', 'Lợi nhuận', ${#numbers.formatCurrency(_cost) + 'đ'}, 'fa fa-money')}"/>
+        </div>
+
+        <!-- Earnings (Monthly) -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div th:replace="~{admin/pages/dashboard/card :: card('border-left-warning', 'text-warning', 'javascript:void(0)', 'Chi phí', ${#numbers.formatCurrency(_profit) + 'đ'}, 'fa fa-money')}"/>
+        </div>
+
+        <!-- Pending Requests -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div th:replace="~{admin/pages/dashboard/card :: card('border-left-info', 'text-info', ${_hrefOrder}, 'Đơn hàng', ${_totalOrder}, 'fa fa-tasks')}"/>
+        </div>
+    </div>
+</div>
