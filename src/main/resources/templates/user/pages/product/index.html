@@ -1,0 +1,36 @@
+<div th:replace="~{user/layout :: layout(null, ~{::#content})}">
+    <div id="content" th:with="br=${category ne null ? 'Mua sắm,' + category.name : 'Mua sắm'}">
+        <div th:replace="~{user/common/breadcrumb :: breadscrumb(${br})}"/>
+
+        <!-- Shop Section Begin -->
+        <section class="shop spad pt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-end" style="gap: 15px;" th:with="categoryId=${searchRequest.categoryId eq null ? '' : searchRequest.categoryId}">
+                            <a th:href="@{/mua-sam?categoryId=__${categoryId}__&sort=DESC&columnSort=minPrice}" class="d-flex" style="gap: 5px;">
+                                <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+                                Giá cao - thấp
+                            </a>
+                            <a th:href="@{/mua-sam?categoryId=__${categoryId}__&sort=ASC&columnSort=minPrice}" class="d-flex" style="gap: 5px;">
+                                <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                                Giá thấp - cao
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-2">
+                        <div class="row" style="row-gap: 15px;">
+                            <th:block th:each="item : ${_PAGING_KEY.items}">
+                                <div th:replace="~{user/pages/product/product-card :: productCart(${item}, '3', '6', '6')}" />
+                            </th:block>
+                        </div>
+                        <div class="row">
+                            <div th:replace="~{user/common/paging :: #paging}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Shop Section End -->
+    </div>
+</div>

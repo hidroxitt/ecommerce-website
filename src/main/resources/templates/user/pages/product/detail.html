@@ -1,0 +1,173 @@
+<div th:replace="~{user/layout :: layout(null, ~{::#content})}">
+    <div id="content">
+        <section class="shop-details">
+            <div class="product__details__pic pb-2">
+                <div th:replace="~{user/common/breadcrumb :: breadscrumb(${'Mua Sắm,' + product.categoryName +',' + product.name})}"/>
+                <div class="container">
+<!--                    <div class="row">-->
+<!--                        <div class="col-lg-3 col-md-3">-->
+<!--                            <ul class="nav nav-tabs nice-scroll" role="tablist" style="max-height: 518px; overflow: hidden">-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link active" data-toggle="tab" th:href="${'#color-image-primary' + product.id}" role="tab">-->
+<!--                                        <div class="product__thumb__pic set-bg" th:data-setbg="${product.image}"></div>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <th:block th:each="item : ${product.details}" th:with="_color=${item.key}">-->
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" data-toggle="tab" th:href="${'#color-image' + _color.id}" role="tab">-->
+<!--                                            <div class="product__thumb__pic set-bg" th:data-setbg="${_color.imageUrl}"></div>-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+<!--                                </th:block>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-6 col-md-9">-->
+<!--                            <div class="tab-content">-->
+<!--                                <div class="tab-pane active" th:id="${'color-image-primary' + product.id}" role="tabpanel">-->
+<!--                                    <div class="product__details__pic__item">-->
+<!--                                        <img th:src="${product.image}" alt="">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <th:block th:each="item : ${product.details}" th:with="_color=${item.key}">-->
+<!--                                    <div class="tab-pane" th:id="${'color-image' + _color.id}" role="tabpanel">-->
+<!--                                        <div class="product__details__pic__item">-->
+<!--                                            <img th:src="${_color.imageUrl}" alt="">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </th:block>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+            <div class="product__details__content">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="image-container col-md-7 d-flex flex-column" style="gap: 20px;">
+                            <div class="border d-flex justify-content-center" style="border-radius: 10px; height: 400px;">
+                                <img id="image-show" class="h-100" th:src="${product.image}" />
+                            </div>
+                            <div class="owl-carousel">
+                                <div class="item tab-pane border p-1" style="cursor: pointer; border-radius: 10px; width: 70px; height: 70px; min-width: 70px;">
+                                    <img class="product-detail-image" th:src="${product.image}" alt="">
+                                </div>
+                                <th:block th:each="item : ${product.details}" th:with="_color=${item.key}">
+                                    <div class="item tab-pane border p-1" style="cursor: pointer; border-radius: 10px; width: 70px; height: 70px; min-width: 70px;">
+                                        <img class="product-detail-image" th:src="${_color.imageUrl}" alt="">
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                        <form method="post" th:action="@{/gio-hang/them-gio-hang}" class="product__details__text col-md-5 text-left" th:object="${addToCartRequest}">
+                            <h4 th:text="${ product.name }" />
+                            <div class="product__details__last__option">
+                                <ul class="pt-0">
+                                    <li><span>Loại sản phẩm:</span> [[${product.categoryName}]]</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex align-items-center my-2">
+                                <h3 id="new-price" class="mb-0"></h3>
+                                <span id="old-price"></span>
+                            </div>
+                            <p th:text="${product.shortDescription}"/>
+                            <div class="product__details__option d-flex flex-column" style="gap: 20px">
+                                <div class="product__details__option__qty">
+                                    <span>Số lượng:</span>
+                                    <label id="qty"></label>
+                                </div>
+                                <div class="product__details__option__color d-flex">
+                                    <span>Màu:</span>
+                                    <div class="d-flex" style="gap: 10px;">
+                                        <div th:each="item,_status : ${product.details}" th:with="_color=${item.key}">
+                                            <th:block th:each="size,_status : ${item.value}">
+                                                <input
+                                                        type="hidden"
+                                                        th:id="${'color-id' + _color.id + '-' + _status.index}"
+                                                        th:data-qty="${size.quantity}"
+                                                        th:data-price="${size.price}"
+                                                        th:data-discount="${size.discount}"
+                                                        th:data-active="${size.active}"
+                                                        th:data-id="${size.id}"
+                                                />
+                                            </th:block>
+                                            <input class="option-color-input" type="radio" name="optionColor" th:id="${'color-input-' + _color.id}" th:value="${'color-id'+_color.id}" th:checked="${_status.index eq 0 ? true : false}">
+                                            <label class="option-color" th:for="${'color-input-' + _color.id}"th:text="${_color.color}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product__details__option__size d-flex">
+                                    <span>Size:</span>
+                                    <div class="d-flex flex-wrap" style="gap: 10px">
+                                        <div th:each="size,_status : ${product.sizesSet}">
+                                            <input type="radio" name="optionSize" th:id="${size}" th:data-id="${_status.index}"  th:value="${size}" th:checked="${_status.index eq 0 ? true : false}">
+                                            <label th:for="${size}" th:text="${size}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__details__cart__option">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input id="input-qty" type="text" value="1" th:field="*{quantity}" readonly>
+                                        <input id="input-id" type="hidden" th:field="*{productDetailId}" readonly />
+                                    </div>
+                                </div>
+                                <button id="btn-add-cart" class="primary-btn border-0 rounded">Thêm giỏ hàng</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product__details__tab">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#tabs-5"
+                                           role="tab">Mô Tả</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                                        <div class="product__details__tab__content row">
+                                            <div class="product__details__tab__content__item col-md-8 px-1">
+                                                <div class="card p-3" style="box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15)" th:utext="${product.description}" />
+                                            </div>
+                                            <div class="col-md-4 px-1">
+                                                <div class="card p-3" style="height: fit-content; box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15)">
+                                                    <h5 style="font-size: 17px; font-weight: 700">Thông số kỹ thuật</h5>
+                                                    <ul class="border rounded mt-2" style="list-style: none">
+                                                        <li class="d-flex" th:classappend="${_status.index % 2 ne 0 ? 'bg-light' : 'bg-white'}" th:each="spec,_status : ${product.specifications}">
+                                                            <div class="p-3 col-md-6" style="font-size: 14px; font-width: 500;" th:text="${spec.key}"/>
+                                                            <div class="p-3 col-md-6" style="font-size: 14px; font-width: 500;" th:text="${spec.value}"/>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                    <div class="tab-pane" id="tabs-6" role="tabpanel">-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Shop Details Section End -->
+
+        <!-- Related Section Begin -->
+        <section class="related spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="related-title">Sản phẩm liên quan</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div th:replace="~{user/pages/home/product :: product(null, ${product.relatedProducts}, null)}"/>
+                </div>
+            </div>
+        </section>
+        <!-- Related Section End -->
+    </div>
+</div>

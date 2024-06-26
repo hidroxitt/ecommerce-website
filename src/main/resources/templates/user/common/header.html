@@ -1,0 +1,67 @@
+<header class="header">
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <div th:replace="~{user/common/status-login :: statusLogin()}"/>
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            <a th:href="@{/gio-hang}"><img th:src="@{/resources/img/icon/cart.png}" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header>
+<!--        <div class="header__top">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-6 col-md-7">-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6 col-md-5">-->
+<!--                        <div class="header__top__right">-->
+<!--                            <div class="header__top__links">-->
+<!--                                -->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 d-flex align-items-center">
+                    <div class="header__logo">
+                        <a th:href="@{/trang-chu}">
+                            <img th:src="@{/resources/img/logo.png}" alt="" style="height: 75px; width: 200px">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li th:replace="~{user/common/link :: link('/trang-chu', 'Trang chủ')}"/>
+                            <li th:replace="~{user/common/link :: link('/mua-sam', 'Mua sắm')}"/>
+                            <li th:replace="~{user/common/link :: link('/lich-su-mua-hang', 'Đơn hàng')}"/>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center" style="gap: 15px;">
+                    <div class="header__nav__option">
+                        <a class="position-relative" th:href="@{/gio-hang}"><img th:src="@{/resources/img/icon/cart.png}" alt="">
+                            <span
+                                sec:authorize="isAuthenticated()"
+                                class="position-absolute cart-size text-white bg-info"
+                                th:text="${cartSize}"
+                            />
+                        </a>
+                    </div>
+                    <div th:replace="~{user/common/status-login :: statusLogin()}"/>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+</header>

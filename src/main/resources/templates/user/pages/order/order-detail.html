@@ -1,0 +1,88 @@
+<div th:replace="~{user/profile-layout :: profileLayout(~{::#content})}">
+    <div id="content" class="d-flex flex-column" style="row-gap: 15px;" th:object="${orderResponse}">
+
+        <div class="d-flex flex-column position-relative" style="gap: 5px;">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex" style="gap: 5px;">
+                    <span>Mã đơn hàng:</span>
+                    <span class="font-weight-bold" th:text="*{code}"/>
+                </div>
+                <div class="position-absolute" style="right: 0;">
+                    <div th:replace="~{_common/status-order :: statusOrder(*{status})}"/>
+                    <th:block th:if="*{status.name() eq 'PENDING'}">
+                        <a href="javascript:void(0)" data-toggle="modal" class="btn btn-danger w-100" th:data-target="*{'#order' + code}">Hủy bỏ</a>
+                        <div th:replace="~{_common/modal-cancel :: modalCancel(*{'order' + code}, 'Hủy đơn hàng', 'post', @{/lich-su-mua-hang/huy?oCode=__*{code}__})}" />
+                    </th:block>
+                </div>
+            </div>
+            <div class="d-flex" style="gap: 5px;">
+                <span>Ngày mua hàng:</span>
+                <span th:text="*{#dates.format(createdDate, 'dd/MM/yyyy HH:mm')}"/>
+            </div>
+            <div th:if="*{status.name() eq 'CANCEL' OR status.name() eq 'REJECT'}" class="d-flex" style="gap: 5px;">
+                <span>Lý do:</span>
+                <th:block th:if="*{userNote ne null}" th:text="*{userNote}" />
+                <th:block th:if="*{adminNote ne null}" th:text="*{adminNote}" />
+            </div>
+        </div>
+
+        <div class="py-3">
+            <div th:replace="~{user/pages/order/processing :: processing(*{status.name()})}" />
+        </div>
+
+        <div class="bg-white p-3">
+            <div class="d-flex" th:each="item : *{orderDetails}">
+                <div class="col-md-3">
+                    <img style="width: 160px; height: 160px;" th:src="${item.productImg}" />
+                </div>
+                <div class="col-md-7 d-flex flex-column" style="gap: 10px;">
+                    <h4 th:text="${item.productName}"/>
+                    <div class="d-flex" style="gap: 10px;">
+                        <span th:text="${item.size}"/>
+                        <span th:text="${item.color}"/>
+                    </div>
+                    <div>
+                        <span class="text-info font-weight-bold" th:text="${#numbers.formatCurrency(item.price * ( (100 - item.discount) / 100.0 ))}" />
+                        <span class="old-price" th:if="${item.discount gt 0}" th:text="${#numbers.formatCurrency(item.price)}"/>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex">
+                    <span>Số lượng:</span>&nbsp;
+                    <span class="text-info font-weight-bold" th:text="${item.quantity}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-3 d-flex flex-column" style="gap: 10px;">
+            <h4 class="font-weight-bold" style="font-size: 20px;">Thông tin thanh toán</h4>
+            <div class="d-flex justify-content-between">
+                <span>Tổng tiền sản phẩm:</span>
+                <span th:text="*{#numbers.formatCurrency(total)}"/>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span>Phí vận chuyển:</span>
+                <span>Miễn phí</span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span>Phải thanh toán:</span>
+                <span th:text="*{#numbers.formatCurrency(total)}"/>
+            </div>
+        </div>
+
+        <div class="bg-white p-3 d-flex flex-column" style="gap: 10px;">
+            <h4 class="font-weight-bold" style="font-size: 20px;">Thông tin khách hàng</h4>
+            <div class="d-flex" style="gap: 5px;">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                <span th:text="*{fullName}"/>
+            </div>
+            <div class="d-flex" style="gap: 5px;">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span th:text="*{phone}"/>
+            </div>
+            <div class="d-flex" style="gap: 5px;">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span th:text="*{address}"/>
+            </div>
+        </div>
+    </div>
+</div>

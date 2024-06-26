@@ -1,0 +1,27 @@
+<th:block th:fragment="product(label, data, categories)" xmlns="http://www.w3.org/1999/html">
+    <th:block th:if="${not #lists.isEmpty(data)}">
+        <!-- Product Section Begin -->
+        <section class="product spad w-100 pb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-between">
+                        <ul class="filter__controls text-left mb-3">
+                            <li th:if="${label ne null}" class="active text-uppercase" style="color: #111111;" th:text="${label}" />
+                        </ul>
+                        <div th:if="${categories ne null}" class="d-flex" style="gap: 10px;">
+                            <div th:each="category : ${categories}" class="child-category">
+                                <a th:href="@{/mua-sam?categoryId=__${category.id}__}" th:text="${category.name}" class="font-weight-bold"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row product__filter" style="row-gap: 15px;">
+                    <th:block th:each="item : ${data}">
+                        <div th:replace="~{user/pages/product/product-card :: productCart(${item}, '3', '6', '6')}"/>
+                    </th:block>
+                </div>
+            </div>
+        </section>
+        <!-- Product Section End -->
+    </th:block>
+</th:block>

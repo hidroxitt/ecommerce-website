@@ -1,0 +1,20 @@
+<div th:fragment="profileLayout(contentProfile)">
+    <div th:replace="~{user/layout :: layout(null, ~{::#content})}">
+        <div id="content" class="w-100 py-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="px-1 pt-2 bg-white h-100">
+                            <th:block th:replace="~{user/common/profile/sidebar :: profileSidebar()}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="px-1 pt-2 h-100">
+                            <div th:replace="${contentProfile}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

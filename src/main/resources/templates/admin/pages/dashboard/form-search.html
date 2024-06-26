@@ -1,0 +1,31 @@
+<form id="form-statistic" class="col-md-12" th:data-uriRest="@{/admin/rest/dashboard}">
+    <div class="row">
+        <div class="col-md-3">
+            <select id="type" class="form-control" name="type">
+                <option th:value="${ null }">Chọn loại TG</option>
+                <option value="MONTH">Tháng</option>
+                <option value="YEAR">Năm</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 d-none">
+            <select id="MONTH" class="form-control" name="month" required disabled>
+                <option th:value="${ null }">-- Chọn tháng --</option>
+                <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}">
+                    Tháng [[${i}]]
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-3 d-none">
+            <input id="YEAR" type="number" class="form-control" name="year" placeholder="Nhập năm" required disabled/>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary">
+                <i class="fa fa-line-chart mr-2"></i>
+                Thống kê
+            </button>
+        </div>
+    </div>
+</form>

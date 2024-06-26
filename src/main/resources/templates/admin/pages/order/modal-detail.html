@@ -1,0 +1,25 @@
+<th:block th:fragment="modalDetail()">
+    <div th:replace="~{_common/modal :: modal('order-detail', 'Chi tiết đơn hàng', null, null, null, null, ~{::.table-responsive}, 'modal-xl')}">
+        <div class="table-responsive">
+            <table class="table table-bordered w-100" id="dataTable">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Hình ảnh</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Màu</th>
+                    <th>size</th>
+                    <th>Số lượng</th>
+                    <th>Chi phí</th>
+                    <th>Giá tiền</th>
+                    <th>Giảm giá (%)</th>
+                    <th>Tổng tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

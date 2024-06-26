@@ -1,0 +1,12 @@
+<div th:replace="~{user/layout :: layout(null, ~{::#content})}">
+    <div id="content">
+        <div th:replace="~{user/pages/home/hero :: #hero}"/>
+        <div th:replace="~{user/pages/home/banner :: #banner}"/>
+        <div th:each="category : ${categoryProduct}">
+            <div th:replace="~{user/pages/home/product :: product(${category.name}, ${category.products}, ${category.child})}"/>
+        </div>
+        <div th:replace="~{user/pages/home/product :: product('Xu hướng mua hàng', ${bestSeller}, null)}"/>
+        <div th:replace="~{user/pages/home/product :: product('Sản Phẩm Mới', ${newest}, null)}"/>
+        <div th:replace="~{user/pages/home/product :: product('Hot Sales', ${hotSales}, null)}"/>
+    </div>
+</div>
