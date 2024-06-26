@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.product.Product;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -23,6 +21,6 @@ public class Category {
     private String name;
     private String link;
 
-    @ManyToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private Set<Product> product = new HashSet<>();
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+    private List<Product> product;
 }

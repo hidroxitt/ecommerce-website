@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.fit.shopzonerestfulapi.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +48,7 @@ public class AuthController {
 
     @PostMapping("/signup-admin")
     public ApiResponse<AdminEntity> signupAdmin(@RequestBody SignupRequest signupRequest) {
-            return adminService.createAdmin(signupRequest);
+        return adminService.createAdmin(signupRequest);
     }
 
     @PostMapping("/signup-user")

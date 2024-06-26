@@ -7,7 +7,6 @@ import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.request.ChangePasswordRequest;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.dto.response.ApiResponse;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.AdminEntity;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.model.UserEntity;
-import vn.edu.hcmuaf.fit.shopzonerestfulapi.repository.AdminRepository;
 import vn.edu.hcmuaf.fit.shopzonerestfulapi.service.AdminService;
 
 import java.util.List;
