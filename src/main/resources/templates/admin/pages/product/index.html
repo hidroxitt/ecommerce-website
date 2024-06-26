@@ -1,0 +1,52 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content" th:replace="~{admin/common/data-layout :: dataLayout('admin/pages/product/search-form', 'admin/pages/product/action', ~{::.table-responsive}, 'Quản Lý Sản Phẩm', 'Danh sách sản phẩm', true)}">
+        <div class="table-responsive">
+            <table class="table table-bordered w-100" id="dataTable">
+                <thead>
+                <tr>
+                    <th class="table-column-header" data-col="stt" data-show="true">STT</th>
+                    <th class="table-column-header" data-col="image" data-show="true">Hình ảnh</th>
+                    <th class="table-column-header" data-col="code" data-show="false">Mã sản phẩm</th>
+                    <th class="table-column-header" data-col="name" data-show="true">Tên sản phẩm</th>
+                    <th class="table-column-header" data-col="price" data-show="true">Giá</th>
+                    <th class="table-column-header" data-col="categoryName" data-show="false">Loại sản phẩm</th>
+                    <th class="table-column-header" data-col="createdDate" data-show="false">Ngày tạo</th>
+                    <th class="table-column-header" data-col="status" data-show="true">Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item,_status : ${_PAGING_KEY.items}">
+                        <td data-col="stt" th:text="${ _status.index + 1 + ( (_PAGING_KEY.page - 1) * _PAGING_KEY.pageSize ) }"/>
+                        <td data-col="image">
+                            <img width="100%" height="100px" th:src="${ item.image }" th:alt="${ item.name }"
+                                 style="max-width: 135px;"/>
+                        </td>
+                        <td data-col="code" th:text="${ item.code }"/>
+                        <td data-col="name" th:text="${ item.name }"/>
+                        <td data-col="price">
+                            <div class="d-flex flex-column align-items-center" style="gap: 10px">
+                                <span th:text="${#numbers.formatCurrency(item.minPrice)}"/>
+                                <th:block th:if="${item.minPrice ne item.maxPrice}">
+                                    <i class="fa fa-arrow-down"></i>
+                                    <span th:text="${#numbers.formatCurrency(item.maxPrice)}"/>
+                                </th:block>
+                            </div>
+                        </td>
+                        <td data-col="categoryName" th:text="${ item.categoryName }"/>
+                        <td data-col="createdDate" th:text="${#dates.format(item.createdDate, 'dd/MM/yyyy')}">
+                        <td data-col="status">
+                            <span th:class="${ item.active ? 'text-success' : 'text-danger'}" th:text="${ item.active ? 'Hoạt động' : 'Ngưng hoạt động' }"/>
+                        </td>
+                        <td class="user-action">
+                            <div>
+                                <i class="fa fa-ellipsis-v cursor-pointer" aria-hidden="true"></i>
+                                <ul th:replace="~{admin/pages/product/table-action :: actionList(${item.active}, ${item.code})}"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

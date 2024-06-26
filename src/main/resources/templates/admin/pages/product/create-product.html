@@ -1,0 +1,229 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content">
+        <a th:href="@{/admin/product}">Quay lại</a>
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            class="d-flex flex-column mt-3"
+            style="gap: 20px;"
+            th:object="${createRequest}"
+        >
+            <input type="hidden" th:field="*{id}"/>
+            <div>
+                <a data-toggle="collapse" href="#basicInfo" role="button" class="h3 text-dark">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    Thông tin cơ bản
+                </a>
+                <div class="collapse show mt-2 card p-3" id="basicInfo">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="isShowHome">Hiển thị home page</label>
+                            <input id="isShowHome" type="checkbox" th:field="*{isShowHome}" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="required">Mã sản phẩm</label>
+                            <input class="form-control" placeholder="Nhập mã sản phẩm" th:field="*{code}" th:readonly="${isUpdate}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="required">Tên sản phẩm</label>
+                            <input class="form-control" placeholder="Nhập tên sản phẩm" th:field="*{name}" required/>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label th:class="${isUpdate ? '' : 'required'}">Ảnh đại diện</label>
+                            <input class="form-control" type="file" accept="image/png" th:field="*{image}" th:required="${!isUpdate}"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="required">Loại sản phẩm</label>
+                            <select class="custom-select" th:field="*{categoryId}" required>
+                                <option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.code + '-' + item.name}" />
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="required">Mô tả ngắn (500 ký tự)</label>
+                            <textarea class="form-control" rows="5" maxlength="500" th:field="*{shortDescription}"/>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="required">Mô tả sản phẩm</label>
+                            <textarea id="ckeditor" th:field="*{description}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <a data-toggle="collapse" href="#technical" role="button" class="h3 text-dark">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    Thông số kỹ thuật
+                </a>
+                <div class="collapse show mt-2 card p-3" id="technical">
+                    <div class="row">
+                        <div class="col-md-4">Tên</div>
+                        <div class="col-md-4">Giá trị</div>
+                    </div>
+                    <div id="tech-container" class="d-flex flex-column" style="row-gap: 20px;">
+                        <div th:if="*{specifications eq null or #lists.isEmpty(specifications)}" class="row">
+                            <div class="col-md-4">
+                                <input class="form-control" name="specifications[0].key"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" name="specifications[0].value"/>
+                            </div>
+                        </div>
+
+                        <div th:if="*{specifications ne null and !#lists.isEmpty(specifications)}" th:each="spe,_status : *{specifications}" class="row" th:id="${'spec-' + _status.index}">
+                            <div class="col-md-4">
+                                <input class="form-control" th:name="${'specifications[' + _status.index + '].key'}" th:value="${spe.key}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" th:name="${'specifications[' + _status.index + '].value'}" th:value="${spe.value}"/>
+                            </div>
+                            <div class="col-md-1" th:if="${_status.index gt 0}">
+                                <button type="button" class="btn btn-danger" th:attr="onclick=|deleteSpecifications('spec-${_status.index}')|" >
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button type="button" id="btn-add-tech" class="btn btn-primary">Thêm thông tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <a data-toggle="collapse" href="#detailInfo" role="button" class="h3 text-dark">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    Thông tin chi tiết
+                </a>
+                <div class="collapse show mt-2 card p-3" id="detailInfo">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <fieldset class="border p-3">
+                                <legend class="mb-0" style="width: fit-content">Màu</legend>
+                                <div class="d-flex">
+                                    <input id="color-input" class="form-control" placeholder="Nhập màu ( 20 ký tự )"
+                                           maxlength="20"/>
+                                    <button type="button" class="btn btn-primary ml-1" id="add-color-btn">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="colors" id="colors" th:value="*{colors}" required />
+                                <div id="color-container" class="d-flex flex-wrap mt-3" style="gap: 10px">
+                                    <th:block th:if="*{colors ne null}">
+                                        <th:block th:each="color : *{#strings.listSplit(colors, ',')}">
+                                            <div class="card px-3 py-2 delete cursor-pointer" title="Click to delete" th:text="${color}"/>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-md-6">
+                            <fieldset class="border p-3">
+                                <legend class="mb-0" style="width: fit-content">Size</legend>
+                                <div class="d-flex">
+                                    <input id="size-input" class="form-control" placeholder="Nhập size ( 5 ký tự )"
+                                           maxlength="5"/>
+                                    <button type="button" class="btn btn-primary ml-1" id="add-size-btn">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="sizes" id="sizes" th:value="*{sizes}" required/>
+                                <div id="size-container" class="d-flex flex-wrap mt-3" style="gap: 10px">
+                                    <th:block th:if="*{sizes ne null}">
+                                        <th:block th:each="size : *{#strings.listSplit(sizes, ',')}">
+                                            <div class="card px-3 py-2 delete cursor-pointer" title="Click to delete" th:text="${size}"/>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mx-0">
+                        <fieldset class="border p-3 w-100">
+                            <legend class="mb-0" style="width: fit-content">Cấu hình</legend>
+                            <div class="table-responsive">
+                                <table id="color-size-table" class="table table-bordered w-100">
+                                    <thead>
+                                    <tr>
+                                        <th>Màu</th>
+                                        <th>Size</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá nhập</th>
+                                        <th>Giá bán</th>
+                                        <th>Giảm giá (%)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item : *{productDetails}">
+                                        <th:block th:each="pd,_status : ${item.value}">
+                                            <tr th:class="${item.key + ' size-' + pd.size}">
+                                                <th:block th:if="${_status.index eq 0}">
+                                                    <td class="color" th:rowspan="${item.value.size()}" th:data-name="${item.key}">
+                                                        <div>
+                                                            <label th:text="${item.key}"/>
+                                                            <label th:for="${'color-' + item.key}" class="d-flex cursor-pointer">
+                                                                <input th:id="${'color-' + item.key }" type="file" class="d-none" th:name="${item.key}"/>
+                                                                <i class="fa fa-upload" th:classappend="${ pd.color.imageUrl ne null ? 'd-none' : ''}"></i>
+                                                                <th:block th:if="${pd.color.imageUrl ne null}">
+                                                                    <img th:src="${ pd.color.imageUrl }"
+                                                                         class="preview-image scalable"/>
+                                                                </th:block>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </th:block>
+                                                <td class="size" th:text="${ pd.size }"/>
+                                                <td>
+                                                    <input class="form-control" type="number" min="0"
+                                                           th:value="${ pd.quantity }"
+                                                           th:name="${'quantity-' + item.key + '-' +  pd.size}"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="number" min="0"
+                                                           th:value="${ pd.cost }"
+                                                           th:name="${'cost-' + item.key + '-' + pd.size }"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="number" min="0"
+                                                           th:value="${ pd.price }"
+                                                           th:name="${'price-' + item.key +'-' + pd.size }"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="number" min="0"
+                                                           th:value="${ pd.discount }"
+                                                           th:name="${'discount-' + item.key + '-' + pd.size }"/>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-secondary" th:href="@{/admin/product}">Hủy bỏ</a>
+                <button class="btn btn-primary ml-3">Lưu lại</button>
+            </div>
+        </form>
+    </div>
+</div>

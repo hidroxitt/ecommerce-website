@@ -1,0 +1,117 @@
+<div th:replace="~{user/layout :: layout(null, ~{::#content})}">
+    <div id="content">
+        <div th:replace="~{user/common/breadcrumb :: breadscrumb('Giỏ hàng')}"/>
+        <!-- Shopping Cart Section Begin -->
+        <section class="shopping-cart spad pt-5">
+            <div class="container">
+                <form class="row">
+                    <div class="col-lg-8">
+                        <div class="shopping__cart__table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <input id="cart-selector" type="checkbox" style="width: 50px" />
+                                    </th>
+                                    <th>Sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng tiền</th>
+                                    <th class="cart__close">
+                                        <th:block th:if="${!#lists.isEmpty(myCart)}">
+                                            <a th:href="@{/gio-hang/xoa-tat-ca}">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </th:block>
+                                        <th:block th:if="${#lists.isEmpty(myCart)}">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </th:block>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="cart : ${myCart}">
+                                    <tr
+                                        th:class="${cart.quantity > cart.maxQuantity ? 'border border-warning' : '' }"
+                                        style="border-width: 2px;"
+                                        th:with="oldPrice=${cart.price},newPrice=${cart.price * ( (100 - cart.discount) / 100.0)}"
+                                    >
+                                        <input type="hidden" th:value="${cart.cartId}" name="id">
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name="cartId"
+                                                style="width: 50px"
+                                                th:value="${cart.cartId}"
+                                                th:data-newPrice="${newPrice}"
+                                                th:data-oldPrice="${oldPrice}"
+                                                th:data-quantity="${cart.quantity}"
+                                            />
+                                        </td>
+                                        <td class="product__cart__item">
+                                            <a th:href="@{/shopping/detail?pCode=__${cart.productCode}__}" class="product__cart__item__pic">
+                                                <img class="w-100 h-100" th:src="${cart.productDetailImage}" th:alt="${cart.productName}">
+                                            </a>
+                                            <div class="product__cart__item__text">
+                                                <a th:href="@{/shopping/detail?pCode=__${ cart.productCode }__}" class="h6">
+                                                    [[${cart.productName}]] - [[${cart.color}]] - [[${cart.size}]]
+                                                </a>
+                                                <div class="d-flex">
+                                                    <h5 th:text="${#numbers.formatCurrency(newPrice)}"/>
+                                                    <span class="old-price ml-2" th:classappend="${ cart.price eq newPrice ? 'd-none' : '' }" th:text="${#numbers.formatCurrency(oldPrice)}" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input th:value="${cart.quantity}" name="quantity" th:max="${cart.maxQuantity}" readonly>
+                                                </div>
+                                                <div>
+                                                    <strong>Max:&nbsp;</strong>
+                                                    <span th:text="${cart.maxQuantity}"/>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price" th:text="${#numbers.formatCurrency(newPrice * cart.quantity)}"/>
+                                        <td class="cart__close">
+                                            <a th:href="@{/gio-hang/xoa-gio-hang?id=__${ cart.cartId }__}">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn">
+                                    <a th:href="@{/trang-chu}">Tiếp tục mua sắm</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn update__btn">
+                                    <button th:formaction="@{/gio-hang/cap-nhat}" formmethod="post"><i class="fa fa-spinner"></i> Cập nhật</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="cart__total">
+                            <h6>Tổng giá trị (<span id="quantity-cart">0</span>) </h6>
+                            <ul>
+                                <li>Giá gốc <span id="original-price">0</span></li>
+                                <li>Giảm giá <span id="discount-price">0</span></li>
+                                <li>Tổng <span id="total-price">0</span></li>
+                            </ul>
+                            <button id="btn-checkout" th:data-href="@{/mua-sam/dat-hang}" formmethod="post" class="primary-btn disabled text-white w-100 border-0 rounded">Đặt hàng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- Shopping Cart Section End -->
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content" th:replace="~{admin/common/data-layout :: dataLayout(null, 'admin/pages/category/action', ~{::.table-responsive}, 'Quản Lý Danh Mục', 'Danh sách danh mục', false)}">
+        <div class="table-responsive">
+            <table class="table table-bordered w-100" id="dataTable">
+                <thead>
+                <tr>
+                    <th class="table-column-header" data-col="code" data-show="true">Mã danh mục</th>
+                    <th class="table-column-header" data-col="name" data-show="true">Tên danh mục</th>
+                    <th class="table-column-header" data-col="status" data-show="true">Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <th:block th:replace="~{admin/pages/category/category-row :: row(1, ${categoryTree})}"/>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

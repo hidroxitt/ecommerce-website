@@ -1,0 +1,25 @@
+<th:block th:fragment="row(level, list)" th:each="item : ${list}" th:object="${item}">
+    <tr class="category-row" th:parent="${'parentId' + item.parentId}" th:classappend="${item.parentId ne null ? 'd-none' : ''}">
+        <div th:replace="~{_common/modal :: modal(*{'delete-category' + id}, 'Xác nhận?', *{'Bạn có muốn xóa danh mục: ' + name}, @{/admin/category/delete(id=__*{id}__)}, 'get', null, null, null)}" />
+        <div th:replace="~{admin/pages/category/modal-form :: modalForm(${item}, *{'update-category' + id}, 'Cập nhật danh mục', @{/admin/category/update})}" />
+        <td data-col="code" th:style="${'padding-left: ' + level * 20 + 'px'}">
+            <div class="d-flex" style="gap: 15px">
+                <i th:if="*{child ne null and !#lists.isEmpty(child)}" class="fa fa-chevron-right" th:data-id="${item.id}"></i>
+                <span  th:text="*{code}"/>
+            </div>
+        </td>
+        <td data-col="name" th:text="*{name}"/>
+        <td data-col="status">
+            <span th:class="*{ active ? 'text-success' : 'text-danger' }">[[*{ active ? 'Hoạt động' : 'Ngưng hoạt động' }]]</span>
+        </td>
+        <td class="user-action">
+            <div>
+                <i class="fa fa-ellipsis-v cursor-pointer" aria-hidden="true"></i>
+                <ul th:replace="~{admin/pages/category/table-action :: actionList(*{active}, *{id})}"></ul>
+            </div>
+        </td>
+    </tr>
+    <th:block th:if="*{child ne null and !#lists.isEmpty(child)}">
+        <th:block th:replace="~{admin/pages/category/category-row :: row(${level + 1}, *{child})}" />
+    </th:block>
+</th:block>

@@ -1,0 +1,43 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout :: layout(~{::#content})}">
+    <div id="content">
+
+        <!-- Page Heading -->
+        <div th:replace="~{admin/pages/dashboard/statistic :: statistic('Tổng số', ${totalStatistic.revenue}, ${totalStatistic.cost}, ${totalStatistic.profit}, ${totalStatistic.totalOrder}, @{/admin/order})}" />
+
+        <!-- Page Heading -->
+        <div th:replace="~{admin/pages/dashboard/statistic :: statistic('Hôm nay', ${todayStatistic.revenue}, ${todayStatistic.cost}, ${todayStatistic.profit}, ${todayStatistic.totalOrder}, @{/admin/order?fromDate=__${now}__&toDate=__${now}__})}" />
+
+        <div class="row">
+            <div th:replace="~{admin/pages/dashboard/form-search :: #form-statistic}"/>
+
+            <div class="d-flex">
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div th:replace="~{admin/pages/dashboard/pie :: pie('Đơn hàng', 'chartBill')}"/>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div th:replace="~{admin/pages/dashboard/pie :: pie('Người dùng', 'chartUser')}"/>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div th:replace="~{admin/pages/dashboard/pie :: pie('Sản phẩm', 'chartProduct')}"/>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div th:replace="~{admin/pages/dashboard/revenue-area :: area('Doanh thu', 'revenue')}"/>
+            </div>
+
+            <div class="col-md-12">
+                <div th:replace="~{admin/pages/dashboard/revenue-area :: area('Chi phí', 'cost')}"/>
+            </div>
+
+            <div class="col-md-12">
+                <div th:replace="~{admin/pages/dashboard/revenue-area :: area('Lợi nhuận', 'profit')}"/>
+            </div>
+        </div>
+    </div>
+</div>

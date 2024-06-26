@@ -1,0 +1,14 @@
+<div th:fragment="statusOrder(value)" th:with="v=${value.name}">
+    <th:block th:if="${ v eq 'PENDING' or v eq 'APPROVED'}">
+        <strong class="text-primary" th:text="${value.value}"/>
+    </th:block>
+    <th:block th:if="${ v eq 'CANCEL' or v eq 'REJECT' }">
+        <strong class="text-danger" th:text="${value.value}"/>
+    </th:block>
+    <th:block th:if="${ v eq 'DELIVERING' }">
+        <strong class="text-warning" th:text="${value.value}"/>
+    </th:block>
+    <th:block th:if="${ v eq 'DONE' }">
+        <strong class="text-success" th:text="${value.value}"/>
+    </th:block>
+</div>

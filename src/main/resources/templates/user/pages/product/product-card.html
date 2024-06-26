@@ -1,0 +1,32 @@
+<th:block th:fragment="productCart(item, lg, md, sm)" th:object="${item}">
+    <div class="px-2" th:classappend="${'col-lg-' + lg + ' col-md-' + md + ' col-sm-' + sm}">
+        <div class="cart p-3 product__item position-relative" th:classappend="*{discount ne null && discount > 0 ? 'discount' : ''}" style="box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15)">
+            <div th:if="*{discount ne null and discount > 0}" class="product__item__discount position-absolute">[[*{discount}]]%</div>
+            <div class="product__item__pic set-bg" th:data-setbg="*{image}" style="background-size: 160px 160px;">
+            </div>
+            <div class="product__item__text">
+                <h6 class="dots-line" line="2" th:title="*{name}" th:text="*{name}"/>
+                <th:block th:switch="*{minPrice eq maxPrice}">
+                    <th:block th:case="${true}">
+                        <h5 th:text="*{#numbers.formatCurrency(maxPrice)}"/>
+                    </th:block>
+                    <th:block th:case="*">
+                        <div class="d-flex align-items-center" style="gap: 10px" th:with="newPrice=*{minPrice * ( (100 - discount) / 100.0)}">
+                            <th:block th:if="${item.minPrice eq newPrice}">
+                                <h5 th:text="*{#numbers.formatCurrency(minPrice)}" />
+                            </th:block>
+                            <th:block th:if="${item.minPrice ne newPrice}">
+                                <h5 th:text="${#numbers.formatCurrency(newPrice)}" />
+                                <h5 class="old-price" th:text="*{#numbers.formatCurrency(minPrice)}" />
+                            </th:block>
+                        </div>
+                    </th:block>
+                </th:block>
+                <div class="desc my-2 dots-line" line="3" th:text="*{shortDescription}"/>
+            </div>
+            <div>
+                <a th:href="@{/mua-sam/chi-tiet-san-pham/__*{slug}__?pCode=__*{code}__}">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</th:block>
