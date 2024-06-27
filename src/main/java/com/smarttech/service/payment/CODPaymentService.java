@@ -1,13 +1,14 @@
 package com.smarttech.service.payment;
 
-import com.smarttech.constant.OrderStatus;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
 import com.smarttech.dto.order.CreateOrderRequest;
 import com.smarttech.dto.payment.PaymentResponse;
 import com.smarttech.entity.Order;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,6 @@ public class CODPaymentService extends AbstractPaymentService {
 
     @Override
     public void refund(Order order) {
-        // un-support for COD payment
     }
 
     @Override

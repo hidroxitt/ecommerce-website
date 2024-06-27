@@ -1,18 +1,8 @@
 package com.smarttech.service;
 
-import com.smarttech.constant.NotificationConstant;
-import com.smarttech.dto.base.Result;
-import com.smarttech.dto.page.PageResponse;
-import com.smarttech.dto.user.*;
-import com.smarttech.entity.User;
-import com.smarttech.exception.ValidationException;
-import com.smarttech.repository.UserRepository;
-import com.smarttech.repository.custom.CustomsUserRepository;
-import com.smarttech.service.notify.INotifyService;
-import com.smarttech.service.notify.model.Notification;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +16,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.Optional;
+import com.smarttech.constant.NotificationConstant;
+import com.smarttech.dto.base.Result;
+import com.smarttech.dto.page.PageResponse;
+import com.smarttech.dto.user.ChangePasswordDTO;
+import com.smarttech.dto.user.SelfUpdateRequest;
+import com.smarttech.dto.user.UserRegisterRequest;
+import com.smarttech.dto.user.UserResponse;
+import com.smarttech.dto.user.UserSearchRequest;
+import com.smarttech.dto.user.UserSearchResponse;
+import com.smarttech.dto.user.UserUpdateRequest;
+import com.smarttech.entity.User;
+import com.smarttech.exception.ValidationException;
+import com.smarttech.repository.UserRepository;
+import com.smarttech.repository.custom.CustomsUserRepository;
+import com.smarttech.service.notify.INotifyService;
+import com.smarttech.service.notify.model.Notification;
+
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -67,7 +75,7 @@ public class UserService implements UserDetailsService {
             this.userRepository.findByEmail(userRegisterRequest.getEmail())
                     .filter(x -> !x.getId().equals(userRegisterRequest.getId()))
                     .ifPresent(u -> {
-                        throw new ValidationException("user.email.valdiate.exist", u.getEmail());
+                        throw new ValidationException("Email đã tồn tại", u.getEmail());
                     });
         }
 
@@ -75,7 +83,7 @@ public class UserService implements UserDetailsService {
             this.userRepository.findByPhone(userRegisterRequest.getPhone())
                     .filter(x -> !x.getId().equals(userRegisterRequest.getId()))
                     .ifPresent(u -> {
-                        throw new ValidationException("user.phone.validate.exist", u.getPhone());
+                        throw new ValidationException("Số điện thoại đã tồn tại", u.getPhone());
                     });
         }
 
