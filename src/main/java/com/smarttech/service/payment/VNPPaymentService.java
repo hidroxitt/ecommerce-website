@@ -85,48 +85,45 @@ public class VNPPaymentService extends AbstractPaymentService {
                 .build();
     }
 
-@Override
-@Transactional
-public Order afterPayment(CreateOrderRequest createOrderRequest, Map<String,
-Object> data) {
-String secureHash = (String) data.get("vnp_SecureHash");
+    @Override
+    @Transactional
+    public Order afterPayment(CreateOrderRequest createOrderRequest, Map<String, Object> data) {
+        String secureHash = (String) data.get("vnp_SecureHash");
 
-data.remove("uuid");
-data.remove("provider");
-data.remove("vnp_SecureHashType");
-data.remove("vnp_SecureHash");
+        data.remove("uuid");
+        data.remove("provider");
+        data.remove("vnp_SecureHashType");
+        data.remove("vnp_SecureHash");
 
-Map<String, Object> _data = new HashMap<>();
-data.forEach((key, value) -> {
-String fieldName = this.encode(key);
-String fieldValue = this.encode(value.toString());
-_data.put(fieldName, fieldValue);
-});
+        Map<String, Object> _data = new HashMap<>();
+        data.forEach((key, value) -> {
+            String fieldName = this.encode(key);
+            String fieldValue = this.encode(value.toString());
+            _data.put(fieldName, fieldValue);
+        });
 
-String signValue = this.hashAllFields(_data,
-this.vnPayProperties.getSecretKey());
-if (!secureHash.equals(signValue)) {
-throw new ValidationException("Chữ ký không hợp lệ!");
-}
+        String signValue = this.hashAllFields(_data,
+                this.vnPayProperties.getSecretKey());
+        if (!secureHash.equals(signValue)) {
+            throw new ValidationException("Chữ ký không hợp lệ!");
+        }
 
-if (!"00".equals(data.get("vnp_TransactionStatus"))) {
-String message =
-AppConstant.VnPay.TRANSACTION_STATUS.get(data.get("vnp_TransactionStatus"));
-throw new ValidationException(message);
-}
-String txnRef = (String) data.get("vnp_TxnRef");
-String payDate = (String) data.get("vnp_PayDate");
-// todo: fix later
-// VnPayQueryOutput vnPayQueryOutput = this.queryTransactionVnPay(txnRef,
-payDate, createOrderRequest.getIpAddress());
-// if (!"00".equals(vnPayQueryOutput.getTransactionStatus())) {
-// String message =
-AppConstant.VnPay.TRANSACTION_STATUS.get(vnPayQueryOutput.getTransactionStatus());
-// throw new ValidationException(message);
-// }
-createOrderRequest.setPaymentId(txnRef);
-return this.createOrder(createOrderRequest);
-}
+        if (!"00".equals(data.get("vnp_TransactionStatus"))) {
+            String message = AppConstant.VnPay.TRANSACTION_STATUS.get(data.get("vnp_TransactionStatus"));
+            throw new ValidationException(message);
+        }
+        String txnRef = (String) data.get("vnp_TxnRef");
+        String payDate = (String) data.get("vnp_PayDate");
+        // todo: fix later
+        VnPayQueryOutput vnPayQueryOutput = this.queryTransactionVnPay(txnRef,
+                payDate, createOrderRequest.getIpAddress());
+        if (!"00".equals(vnPayQueryOutput.getTransactionStatus())) {
+            String message = AppConstant.VnPay.TRANSACTION_STATUS.get(vnPayQueryOutput.getTransactionStatus());
+            throw new ValidationException(message);
+        }
+        createOrderRequest.setPaymentId(txnRef);
+        return this.createOrder(createOrderRequest);
+    }
 
     @Override
     @SneakyThrows
