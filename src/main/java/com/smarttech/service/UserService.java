@@ -101,7 +101,7 @@ public class UserService implements UserDetailsService {
         if (userRegisterRequest.getId() == null) {
             this.sendEmail(user);
         }
-        return Result.success(userResponse, "user.register.success");
+        return Result.success(userResponse, "Đăng ký thành công.");
     }
 
     public void sendEmail(User user) {
@@ -124,7 +124,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void changeStatus(Long id) {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ValidationException("user.id.validate.not-exist", id));
+                .orElseThrow(() -> new ValidationException("User ID không tồn tại", id));
         user.setActive(!user.getActive());
         this.userRepository.save(user);
     }
@@ -150,7 +150,8 @@ public class UserService implements UserDetailsService {
         userResponse.setLastName(u.getLastName());
         userResponse.setPhone(u.getPhone());
         userResponse.setAddress(u.getAddress());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userResponse, userResponse.getPassword(), userResponse.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userResponse,
+                userResponse.getPassword(), userResponse.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         this.userRepository.save(u);
     }
